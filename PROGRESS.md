@@ -11,6 +11,7 @@ Acceptance criteria from Notion: main website prototype screenshots should be re
 ### Completed
 
 - Created the initial LocalLink Market PHP prototype structure.
+- Created and pushed the new GitHub repository: https://github.com/TheReal-KT/locallink-market.
 - Added reusable `includes/header.php`, `includes/footer.php`, and `includes/data.php`.
 - Built responsive pages for:
   - Home
