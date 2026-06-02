@@ -12,7 +12,7 @@ require __DIR__ . '/includes/header.php';
   </div>
   <div class="page-hero-utility">
     <div class="listing-search">
-      <span>Search products, sellers, or collection areas</span>
+      <span>Search products, sellers, or areas</span>
       <strong>Open search</strong>
     </div>
     <div class="chip-row">
@@ -38,7 +38,7 @@ require __DIR__ . '/includes/header.php';
       <label for="price">Max price</label>
       <input id="price" type="range" min="100" max="3000" value="1500">
       <button class="button button-dark" type="button">Apply filters</button>
-      <p class="form-note">Prototype filters only for now. PHP query handling and pagination still need implementation.</p>
+      <p class="form-note">Use filters to narrow listings by product, category, and budget.</p>
     </form>
   </aside>
   <div>

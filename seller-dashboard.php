@@ -10,7 +10,7 @@ require __DIR__ . '/includes/header.php';
     <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Overview</a>
     <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
     <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Orders</a>
-    <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Verification</a>
+    <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Settings</a>
   </aside>
   <div class="dashboard-main">
     <div class="section-heading row-heading">
@@ -26,8 +26,8 @@ require __DIR__ . '/includes/header.php';
       <?php endforeach; ?>
     </div>
     <div class="dashboard-callout">
-      <span>Seller workflow</span>
-      <p>Verification requests, seller-only access guards, and real order actions are the main functional work still missing behind this screen.</p>
+      <span>Seller tools</span>
+      <p>Track active listings, buyer requests, and order details from your seller workspace.</p>
     </div>
     <div class="product-grid dashboard-products">
       <?php foreach (array_slice($products, 0, 3) as $product): ?>

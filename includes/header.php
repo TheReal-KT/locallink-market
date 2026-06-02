@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/app.php';
 $pageTitle = $pageTitle ?? 'LocalLink Market';
-$pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.';
+$pageDescription = $pageDescription ?? 'Buy and sell trusted local goods with nearby people.';
 ?>
 <!doctype html>
 <html lang="en">
@@ -22,10 +22,10 @@ $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.'
         <span class="brand-mark">LL</span>
         <span class="brand-copy">
           <span class="brand-name">LocalLink Market</span>
-          <span class="brand-note">Low-data local commerce</span>
+          <span class="brand-note">Local buying and selling</span>
         </span>
       </a>
-      <span class="header-kicker">Buyer, seller, and admin prototype</span>
+      <span class="header-kicker">Shop nearby. Sell with confidence.</span>
     </div>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
       <span></span>

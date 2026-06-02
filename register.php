@@ -7,7 +7,7 @@ require __DIR__ . '/includes/header.php';
   <div class="auth-copy">
     <p class="eyebrow">Join LocalLink</p>
     <h1>Create a buyer account or request seller access.</h1>
-    <p>The form is structured for later PHP validation and RBAC role assignment, while keeping the page ready for desktop, tablet, and mobile screenshots.</p>
+    <p>Create an account to shop local listings, save your order history, or start selling to nearby buyers.</p>
     <div class="support-grid">
       <div class="support-card">
         <span>Buyer route</span>
@@ -18,8 +18,8 @@ require __DIR__ . '/includes/header.php';
         <strong>Request seller access, list products, and manage received orders.</strong>
       </div>
       <div class="support-card">
-        <span>Trust route</span>
-        <strong>Verification status and moderation notes are planned for the next backend phase.</strong>
+        <span>Account support</span>
+        <strong>Choose the account type that matches how you want to use the marketplace.</strong>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@ require __DIR__ . '/includes/header.php';
     <label for="register-password">Password</label>
     <input id="register-password" type="password" placeholder="Create password">
     <button class="button button-dark" type="button">Create account</button>
-    <p class="form-note">Seller request approval, password hashing, and session handling will be added in the PHP/MySQL phase.</p>
+    <p class="form-note">Use an email address you check often so you do not miss order or seller updates.</p>
   </form>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

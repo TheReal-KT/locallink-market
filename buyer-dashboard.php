@@ -26,8 +26,8 @@ require __DIR__ . '/includes/header.php';
       <div class="stat-card"><span>Reviews due</span><strong>1</strong></div>
     </div>
     <div class="dashboard-callout">
-      <span>Current workspace</span>
-      <p>This prototype shows the order history layer only. Payment confirmation, real order updates, and review submission still need the MySQL-backed flow.</p>
+      <span>Order updates</span>
+      <p>Track delivery progress, payment details, and reviews from your buyer account.</p>
     </div>
     <div class="table-wrap">
       <table>

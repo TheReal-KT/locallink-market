@@ -15,7 +15,7 @@ $products = [
         'location' => 'Mamelodi',
         'seller' => 'Thabo N.',
         'rating' => '4.8',
-        'status' => 'Verified seller',
+        'status' => 'Popular item',
         'description' => 'Unlocked Android phone with a clean screen, charger, and seven-day return window.',
         'image' => 'assets/images/product-phone.svg',
     ],
@@ -39,7 +39,7 @@ $products = [
         'location' => 'Hatfield',
         'seller' => 'Aisha K.',
         'rating' => '4.9',
-        'status' => 'Verified seller',
+        'status' => 'Recently listed',
         'description' => 'Adjustable desk lamp for study rooms, small offices, and bedside tables.',
         'image' => 'assets/images/product-lamp.svg',
     ],
@@ -51,14 +51,14 @@ $products = [
         'location' => 'Midrand',
         'seller' => 'Nandi P.',
         'rating' => '4.7',
-        'status' => 'Campus pickup',
+        'status' => 'Student favourite',
         'description' => 'Second-year accounting books with neat notes and protective covers.',
         'image' => 'assets/images/product-books.svg',
     ],
 ];
 
 $orders = [
-    ['code' => '#LLM-1038', 'item' => 'Canvas street backpack', 'seller' => 'Lebo M.', 'status' => 'Ready for collection', 'total' => 'R 380'],
+    ['code' => '#LLM-1038', 'item' => 'Canvas street backpack', 'seller' => 'Lebo M.', 'status' => 'Ready for delivery', 'total' => 'R 380'],
     ['code' => '#LLM-1031', 'item' => 'Minimal desk lamp', 'seller' => 'Aisha K.', 'status' => 'Completed', 'total' => 'R 220'],
     ['code' => '#LLM-1024', 'item' => 'Accounting textbook set', 'seller' => 'Nandi P.', 'status' => 'Pending seller', 'total' => 'R 640'],
 ];

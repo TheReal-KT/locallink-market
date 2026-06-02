@@ -6,8 +6,8 @@ require __DIR__ . '/includes/header.php';
 <section class="auth-layout">
   <div class="auth-copy">
     <p class="eyebrow">Welcome back</p>
-    <h1>Sign in to manage orders, listings, and moderation tasks.</h1>
-    <p>Use this prototype screen for buyer, seller, and admin login evidence, with a stronger editorial layout that aligns to the Wonder direction.</p>
+    <h1>Sign in to manage your LocalLink account.</h1>
+    <p>Access your orders, listings, reviews, and account details from one place.</p>
     <div class="support-grid">
       <div class="support-card">
         <span>Order tracking</span>
@@ -15,11 +15,11 @@ require __DIR__ . '/includes/header.php';
       </div>
       <div class="support-card">
         <span>Seller messages</span>
-        <strong>Sellers will eventually review listings, requests, and product status from one account area.</strong>
+        <strong>Sellers can keep track of listings, buyer requests, and product activity.</strong>
       </div>
       <div class="support-card">
         <span>Quick support</span>
-        <strong>Admin access, review moderation, and verification workflows can sit behind the same auth shell.</strong>
+        <strong>Get help with account access, order questions, and marketplace activity.</strong>
       </div>
     </div>
   </div>

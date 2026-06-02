@@ -20,15 +20,15 @@ require __DIR__ . '/includes/header.php';
     <div class="detail-support">
       <div class="detail-note">
         <span>Condition note</span>
-        <strong>Seller-facing copy already structured for later validation and moderation.</strong>
+        <strong>Clear condition details help you decide before placing an order.</strong>
       </div>
       <div class="detail-note">
-        <span>Collection route</span>
-        <strong>Designed for collection first, with local delivery available in the MVP.</strong>
+        <span>Delivery note</span>
+        <strong>Delivery details can be arranged directly between the buyer and seller.</strong>
       </div>
       <div class="detail-note">
-        <span>Buyer trust</span>
-        <strong>Ratings, seller status, and admin moderation will map cleanly to MySQL data later.</strong>
+        <span>Buyer overview</span>
+        <strong>Check the seller location, rating, and item details before you buy.</strong>
       </div>
     </div>
   </div>
@@ -49,9 +49,9 @@ require __DIR__ . '/includes/header.php';
       <a class="button button-light" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to listings</a>
     </div>
     <div class="detail-story">
-      <div class="detail-story-item"><span>Fulfilment</span><strong>Collection or local delivery</strong></div>
-      <div class="detail-story-item"><span>Payment</span><strong>EFT, cash on collection, or mock card</strong></div>
-      <div class="detail-story-item"><span>Admin flow</span><strong>Moderation and seller verification planned next</strong></div>
+      <div class="detail-story-item"><span>Delivery</span><strong>Seller-arranged delivery options</strong></div>
+      <div class="detail-story-item"><span>Payment</span><strong>EFT, cash, or card payment</strong></div>
+      <div class="detail-story-item"><span>Support</span><strong>Marketplace support for listing or order questions</strong></div>
     </div>
   </div>
 </section>
