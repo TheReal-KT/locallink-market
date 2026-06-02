@@ -26,6 +26,19 @@ php -S localhost:8000
 
 Then open `http://localhost:8000`. Make sure PHP is installed and available on your `PATH`.
 
+## Run With XAMPP
+
+This repo now supports running from a XAMPP subfolder.
+
+1. Sync the project into XAMPP:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\deploy-xampp.ps1
+```
+
+2. Make sure Apache is started in XAMPP.
+3. Open `http://localhost/locallink-market/`.
+
 ## Next Implementation Steps
 
 1. Replace sample arrays in `includes/data.php` with MySQL queries.

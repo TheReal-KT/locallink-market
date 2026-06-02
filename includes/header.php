@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/app.php';
 $pageTitle = $pageTitle ?? 'LocalLink Market';
 $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.';
 ?>
@@ -12,12 +13,12 @@ $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.'
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/styles.css">
+  <link rel="stylesheet" href="<?php echo htmlspecialchars(app_url('assets/css/styles.css')); ?>">
 </head>
 <body>
   <header class="site-header">
     <div class="brand-cluster">
-      <a class="brand" href="/index.php" aria-label="LocalLink Market home">
+      <a class="brand" href="<?php echo htmlspecialchars(app_url('index.php')); ?>" aria-label="LocalLink Market home">
         <span class="brand-mark">LL</span>
         <span class="brand-copy">
           <span class="brand-name">LocalLink Market</span>
@@ -32,12 +33,12 @@ $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.'
       <span></span>
     </button>
     <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
-      <a href="/products.php">Browse</a>
-      <a href="/seller-dashboard.php">Seller</a>
-      <a href="/buyer-dashboard.php">Orders</a>
-      <a href="/admin/dashboard.php">Admin</a>
-      <a class="nav-accent" href="/register.php">Create account</a>
-      <a class="nav-action" href="/login.php">Sign in</a>
+      <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse</a>
+      <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Seller</a>
+      <a href="<?php echo htmlspecialchars(app_url('buyer-dashboard.php')); ?>">Orders</a>
+      <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin</a>
+      <a class="nav-accent" href="<?php echo htmlspecialchars(app_url('register.php')); ?>">Create account</a>
+      <a class="nav-action" href="<?php echo htmlspecialchars(app_url('login.php')); ?>">Sign in</a>
     </nav>
   </header>
   <main>

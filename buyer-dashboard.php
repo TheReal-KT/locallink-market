@@ -7,10 +7,10 @@ require __DIR__ . '/includes/header.php';
 <section class="dashboard-layout">
   <aside class="dashboard-sidebar">
     <strong>Buyer workspace</strong>
-    <a href="/buyer-dashboard.php">Orders</a>
-    <a href="/products.php">Saved searches</a>
-    <a href="/products.php">Reviews</a>
-    <a href="/login.php">Account</a>
+    <a href="<?php echo htmlspecialchars(app_url('buyer-dashboard.php')); ?>">Orders</a>
+    <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Saved searches</a>
+    <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Reviews</a>
+    <a href="<?php echo htmlspecialchars(app_url('login.php')); ?>">Account</a>
   </aside>
   <div class="dashboard-main">
     <div class="section-heading row-heading">
@@ -18,7 +18,7 @@ require __DIR__ . '/includes/header.php';
         <p class="eyebrow">Buyer dashboard</p>
         <h1>Your orders at a glance.</h1>
       </div>
-      <a class="button button-dark" href="/products.php">Shop again</a>
+      <a class="button button-dark" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Shop again</a>
     </div>
     <div class="stat-grid">
       <div class="stat-card"><span>Open orders</span><strong>2</strong></div>

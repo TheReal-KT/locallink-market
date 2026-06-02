@@ -7,10 +7,10 @@ require __DIR__ . '/includes/header.php';
 <section class="dashboard-layout">
   <aside class="dashboard-sidebar">
     <strong>Seller workspace</strong>
-    <a href="/seller-dashboard.php">Overview</a>
-    <a href="/add-product.php">Add product</a>
-    <a href="/seller-dashboard.php">Orders</a>
-    <a href="/seller-dashboard.php">Verification</a>
+    <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Overview</a>
+    <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
+    <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Orders</a>
+    <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Verification</a>
   </aside>
   <div class="dashboard-main">
     <div class="section-heading row-heading">
@@ -18,7 +18,7 @@ require __DIR__ . '/includes/header.php';
         <p class="eyebrow">Seller dashboard</p>
         <h1>Manage listings and buyer requests.</h1>
       </div>
-      <a class="button button-dark" href="/add-product.php">Add product</a>
+      <a class="button button-dark" href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
     </div>
     <div class="stat-grid">
       <?php foreach ($sellerStats as $stat): ?>
@@ -32,7 +32,7 @@ require __DIR__ . '/includes/header.php';
     <div class="product-grid dashboard-products">
       <?php foreach (array_slice($products, 0, 3) as $product): ?>
         <article class="product-card compact-card">
-          <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+          <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
           <div>
             <h3><?php echo htmlspecialchars($product['title']); ?></h3>
             <p><?php echo htmlspecialchars($product['price']); ?> · <?php echo htmlspecialchars($product['status']); ?></p>

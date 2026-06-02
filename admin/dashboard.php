@@ -7,11 +7,11 @@ require dirname(__DIR__) . '/includes/header.php';
 <section class="dashboard-layout">
   <aside class="dashboard-sidebar">
     <strong>Admin workspace</strong>
-    <a href="/admin/dashboard.php">Dashboard</a>
-    <a href="/admin/dashboard.php">Users</a>
-    <a href="/admin/dashboard.php">Roles</a>
-    <a href="/admin/dashboard.php">Verification</a>
-    <a href="/admin/dashboard.php">Moderation</a>
+    <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Dashboard</a>
+    <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Users</a>
+    <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Roles</a>
+    <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Verification</a>
+    <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Moderation</a>
   </aside>
   <div class="dashboard-main">
     <div class="section-heading">

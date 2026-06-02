@@ -10,8 +10,8 @@ require __DIR__ . '/includes/header.php';
     <h1>Local trade with stronger trust signals and lighter screens.</h1>
     <p class="hero-text">LocalLink helps township traders, home businesses, and nearby buyers discover products quickly, compare seller quality, and move from listing to collection without a heavy interface.</p>
     <div class="hero-actions">
-      <a class="button button-dark" href="/products.php">Browse products</a>
-      <a class="button button-light" href="/add-product.php">List an item</a>
+      <a class="button button-dark" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
+      <a class="button button-light" href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">List an item</a>
     </div>
     <div class="hero-trust">
       <div class="trust-item">
@@ -55,7 +55,7 @@ require __DIR__ . '/includes/header.php';
   </div>
   <div class="category-grid">
     <?php foreach ($categories as $category): ?>
-      <a class="category-card" href="/products.php">
+      <a class="category-card" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">
         <span><?php echo htmlspecialchars($category['name']); ?></span>
         <strong><?php echo htmlspecialchars($category['count']); ?></strong>
       </a>
@@ -69,20 +69,20 @@ require __DIR__ . '/includes/header.php';
       <p class="eyebrow">Recent listings</p>
       <h2>Fresh products from nearby sellers.</h2>
     </div>
-    <a class="text-link" href="/products.php">View all</a>
+    <a class="text-link" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">View all</a>
   </div>
   <div class="product-grid">
     <?php foreach ($products as $product): ?>
       <article class="product-card">
-        <a href="/product.php?id=<?php echo $product['id']; ?>" class="product-media">
-          <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+        <a href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>" class="product-media">
+          <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
         </a>
         <div class="product-body">
           <div class="product-meta">
             <span><?php echo htmlspecialchars($product['category']); ?></span>
             <span><?php echo htmlspecialchars($product['location']); ?></span>
           </div>
-          <h3><a href="/product.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
+          <h3><a href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
           <p class="product-price"><?php echo htmlspecialchars($product['price']); ?></p>
           <div class="product-status-row">
             <span class="product-seller"><?php echo htmlspecialchars($product['seller']); ?></span>

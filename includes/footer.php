@@ -9,17 +9,17 @@
       <div class="footer-column">
         <strong>Prototype Pages</strong>
         <div class="footer-links">
-          <a href="/products.php">Browse listings</a>
-          <a href="/product.php?id=1">Product details</a>
-          <a href="/checkout.php">Checkout flow</a>
+          <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse listings</a>
+          <a href="<?php echo htmlspecialchars(app_url('product.php?id=1')); ?>">Product details</a>
+          <a href="<?php echo htmlspecialchars(app_url('checkout.php')); ?>">Checkout flow</a>
         </div>
       </div>
       <div class="footer-column">
         <strong>Marketplace Flow</strong>
         <div class="footer-links">
-          <a href="/register.php">Create account</a>
-          <a href="/add-product.php">List an item</a>
-          <a href="/seller-dashboard.php">Manage seller tasks</a>
+          <a href="<?php echo htmlspecialchars(app_url('register.php')); ?>">Create account</a>
+          <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">List an item</a>
+          <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Manage seller tasks</a>
         </div>
       </div>
       <div class="footer-column footer-column-highlight">
@@ -28,6 +28,6 @@
       </div>
     </div>
   </footer>
-  <script src="/assets/js/app.js"></script>
+  <script src="<?php echo htmlspecialchars(app_url('assets/js/app.js')); ?>"></script>
 </body>
 </html>

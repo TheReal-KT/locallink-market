@@ -30,7 +30,7 @@ require __DIR__ . '/includes/header.php';
     <label for="password">Password</label>
     <input id="password" type="password" placeholder="Enter password">
     <button class="button button-dark" type="button">Sign in</button>
-    <a class="text-link" href="/register.php">Create a new account</a>
+    <a class="text-link" href="<?php echo htmlspecialchars(app_url('register.php')); ?>">Create a new account</a>
   </form>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

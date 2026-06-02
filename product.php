@@ -15,7 +15,7 @@ require __DIR__ . '/includes/header.php';
 <section class="detail-layout">
   <div>
     <div class="detail-media">
-      <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+      <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
     </div>
     <div class="detail-support">
       <div class="detail-note">
@@ -45,8 +45,8 @@ require __DIR__ . '/includes/header.php';
       <span class="badge"><?php echo htmlspecialchars($product['status']); ?></span>
     </div>
     <div class="hero-actions">
-      <a class="button button-dark" href="/checkout.php">Start order</a>
-      <a class="button button-light" href="/products.php">Back to listings</a>
+      <a class="button button-dark" href="<?php echo htmlspecialchars(app_url('checkout.php')); ?>">Start order</a>
+      <a class="button button-light" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to listings</a>
     </div>
     <div class="detail-story">
       <div class="detail-story-item"><span>Fulfilment</span><strong>Collection or local delivery</strong></div>

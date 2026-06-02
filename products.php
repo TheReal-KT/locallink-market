@@ -53,15 +53,15 @@ require __DIR__ . '/includes/header.php';
     <div class="product-grid catalog-grid">
       <?php foreach ($products as $product): ?>
         <article class="product-card">
-          <a href="/product.php?id=<?php echo $product['id']; ?>" class="product-media">
-            <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+          <a href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>" class="product-media">
+            <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
           </a>
           <div class="product-body">
           <div class="product-meta">
             <span><?php echo htmlspecialchars($product['category']); ?></span>
             <span><?php echo htmlspecialchars($product['location']); ?></span>
           </div>
-          <h3><a href="/product.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
+          <h3><a href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
           <p class="product-price"><?php echo htmlspecialchars($product['price']); ?></p>
           <div class="product-status-row">
             <span class="product-seller"><?php echo htmlspecialchars($product['seller']); ?></span>
