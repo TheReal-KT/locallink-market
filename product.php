@@ -13,10 +13,26 @@ $pageDescription = $product['description'];
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="detail-layout">
-  <div class="detail-media">
-    <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+  <div>
+    <div class="detail-media">
+      <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+    </div>
+    <div class="detail-support">
+      <div class="detail-note">
+        <span>Condition note</span>
+        <strong>Seller-facing copy already structured for later validation and moderation.</strong>
+      </div>
+      <div class="detail-note">
+        <span>Collection route</span>
+        <strong>Designed for collection first, with local delivery available in the MVP.</strong>
+      </div>
+      <div class="detail-note">
+        <span>Buyer trust</span>
+        <strong>Ratings, seller status, and admin moderation will map cleanly to MySQL data later.</strong>
+      </div>
+    </div>
   </div>
-  <div class="detail-copy">
+  <div class="detail-copy detail-panel">
     <p class="eyebrow"><?php echo htmlspecialchars($product['category']); ?></p>
     <h1><?php echo htmlspecialchars($product['title']); ?></h1>
     <p class="detail-price"><?php echo htmlspecialchars($product['price']); ?></p>
@@ -31,6 +47,11 @@ require __DIR__ . '/includes/header.php';
     <div class="hero-actions">
       <a class="button button-dark" href="/checkout.php">Start order</a>
       <a class="button button-light" href="/products.php">Back to listings</a>
+    </div>
+    <div class="detail-story">
+      <div class="detail-story-item"><span>Fulfilment</span><strong>Collection or local delivery</strong></div>
+      <div class="detail-story-item"><span>Payment</span><strong>EFT, cash on collection, or mock card</strong></div>
+      <div class="detail-story-item"><span>Admin flow</span><strong>Moderation and seller verification planned next</strong></div>
     </div>
   </div>
 </section>

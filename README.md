@@ -16,7 +16,7 @@ Responsive C2C marketplace prototype for the ITECA Deliverable 2 project.
 
 ## Design Direction
 
-The current visual system is deliberately black, white, and grayscale only. It uses compact layouts, plain borders, restrained radius, and responsive CSS grid patterns so it can later map cleanly to PHP/MySQL implementation.
+The current visual system uses a warm editorial commerce direction inspired by the Wonder prototype: beige surfaces, hard borders, uppercase utility typography, stronger hierarchy, and compact responsive panels that can still map cleanly to later PHP/MySQL implementation.
 
 ## Run Locally
 
@@ -24,7 +24,7 @@ The current visual system is deliberately black, white, and grayscale only. It u
 php -S localhost:8000
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:8000`. Make sure PHP is installed and available on your `PATH`.
 
 ## Next Implementation Steps
 

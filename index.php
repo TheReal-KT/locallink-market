@@ -6,20 +6,44 @@ require __DIR__ . '/includes/header.php';
 ?>
 <section class="hero">
   <div class="hero-copy">
-    <p class="eyebrow">C2C marketplace for local trade</p>
-    <h1>Buy and sell goods with people near you.</h1>
-    <p class="hero-text">LocalLink keeps the marketplace direct, readable, and practical for buyers, sellers, and admins who need a low-data responsive experience.</p>
+    <p class="eyebrow eyebrow-accent">Buy from nearby sellers</p>
+    <h1>Local trade with stronger trust signals and lighter screens.</h1>
+    <p class="hero-text">LocalLink helps township traders, home businesses, and nearby buyers discover products quickly, compare seller quality, and move from listing to collection without a heavy interface.</p>
     <div class="hero-actions">
       <a class="button button-dark" href="/products.php">Browse products</a>
       <a class="button button-light" href="/add-product.php">List an item</a>
     </div>
+    <div class="hero-trust">
+      <div class="trust-item">
+        <span>Verified sellers</span>
+        <strong>Clear moderation cues for the marketplace and admin demo.</strong>
+      </div>
+      <div class="trust-item">
+        <span>Local collection</span>
+        <strong>Pickup-first flows that fit the MVP payment and delivery model.</strong>
+      </div>
+      <div class="trust-item">
+        <span>Low data journey</span>
+        <strong>Compact cards, practical forms, and responsive layouts for reporting.</strong>
+      </div>
+    </div>
   </div>
-  <div class="hero-panel" aria-label="Featured product summary">
-    <img src="/assets/images/product-phone.svg" alt="Refurbished smartphone" class="hero-product">
-    <div class="hero-card">
-      <span class="badge">Verified seller</span>
-      <h2>Refurbished smartphone</h2>
-      <p>R 2 450 · Mamelodi</p>
+  <div class="hero-panel" aria-label="Marketplace search shortcuts">
+    <div class="hero-search-panel">
+      <p class="eyebrow">Start with search</p>
+      <div class="hero-search-field">
+        <span>Search products, sellers, or areas</span>
+        <strong>Search</strong>
+      </div>
+      <div class="shortcut-list">
+        <div class="shortcut-row"><span>Category</span><strong>Phones and homeware</strong></div>
+        <div class="shortcut-row"><span>Area</span><strong>Pretoria East and Midrand</strong></div>
+        <div class="shortcut-row"><span>Fulfilment</span><strong>Collection and local delivery</strong></div>
+      </div>
+      <div class="market-pulse">
+        <span>Today in Gauteng</span>
+        <p>124 active listings, 19 sellers verified this week, and same-day collection on the most viewed items.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -59,7 +83,11 @@ require __DIR__ . '/includes/header.php';
             <span><?php echo htmlspecialchars($product['location']); ?></span>
           </div>
           <h3><a href="/product.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
-          <p><?php echo htmlspecialchars($product['price']); ?></p>
+          <p class="product-price"><?php echo htmlspecialchars($product['price']); ?></p>
+          <div class="product-status-row">
+            <span class="product-seller"><?php echo htmlspecialchars($product['seller']); ?></span>
+            <span class="badge"><?php echo htmlspecialchars($product['status']); ?></span>
+          </div>
         </div>
       </article>
     <?php endforeach; ?>
@@ -69,12 +97,12 @@ require __DIR__ . '/includes/header.php';
 <section class="section split-section">
   <div>
     <p class="eyebrow">Trust workflow</p>
-    <h2>Buyer, seller, and admin flows fit into one simple system.</h2>
+    <h2>Buyer, seller, and admin flows sit in one practical commerce rhythm.</h2>
   </div>
   <div class="flow-list">
-    <div><strong>1</strong><span>Seller lists a product and requests verification.</span></div>
-    <div><strong>2</strong><span>Buyer searches, compares seller details, and places an order.</span></div>
-    <div><strong>3</strong><span>Admin moderates users, products, reviews, and roles.</span></div>
+    <div><strong>1</strong><span>Seller lists a product, publishes pickup details, and requests verification.</span></div>
+    <div><strong>2</strong><span>Buyer filters by area, checks trust cues, and opens the checkout flow.</span></div>
+    <div><strong>3</strong><span>Admin handles verification, moderation, and RBAC evidence for the report.</span></div>
   </div>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

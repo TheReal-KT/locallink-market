@@ -25,6 +25,10 @@ require __DIR__ . '/includes/header.php';
         <div class="stat-card"><span><?php echo htmlspecialchars($stat['label']); ?></span><strong><?php echo htmlspecialchars($stat['value']); ?></strong></div>
       <?php endforeach; ?>
     </div>
+    <div class="dashboard-callout">
+      <span>Seller workflow</span>
+      <p>Verification requests, seller-only access guards, and real order actions are the main functional work still missing behind this screen.</p>
+    </div>
     <div class="product-grid dashboard-products">
       <?php foreach (array_slice($products, 0, 3) as $product): ?>
         <article class="product-card compact-card">
@@ -32,6 +36,7 @@ require __DIR__ . '/includes/header.php';
           <div>
             <h3><?php echo htmlspecialchars($product['title']); ?></h3>
             <p><?php echo htmlspecialchars($product['price']); ?> · <?php echo htmlspecialchars($product['status']); ?></p>
+            <span class="product-seller"><?php echo htmlspecialchars($product['seller']); ?></span>
           </div>
         </article>
       <?php endforeach; ?>

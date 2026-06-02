@@ -16,10 +16,16 @@ $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.'
 </head>
 <body>
   <header class="site-header">
-    <a class="brand" href="/index.php" aria-label="LocalLink Market home">
-      <span class="brand-mark">LL</span>
-      <span>LocalLink</span>
-    </a>
+    <div class="brand-cluster">
+      <a class="brand" href="/index.php" aria-label="LocalLink Market home">
+        <span class="brand-mark">LL</span>
+        <span class="brand-copy">
+          <span class="brand-name">LocalLink Market</span>
+          <span class="brand-note">Low-data local commerce</span>
+        </span>
+      </a>
+      <span class="header-kicker">Buyer, seller, and admin prototype</span>
+    </div>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
       <span></span>
       <span></span>
@@ -27,9 +33,10 @@ $pageDescription = $pageDescription ?? 'A responsive C2C marketplace prototype.'
     </button>
     <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
       <a href="/products.php">Browse</a>
-      <a href="/buyer-dashboard.php">Buyer</a>
       <a href="/seller-dashboard.php">Seller</a>
+      <a href="/buyer-dashboard.php">Orders</a>
       <a href="/admin/dashboard.php">Admin</a>
+      <a class="nav-accent" href="/register.php">Create account</a>
       <a class="nav-action" href="/login.php">Sign in</a>
     </nav>
   </header>

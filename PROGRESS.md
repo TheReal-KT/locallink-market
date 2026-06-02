@@ -41,3 +41,24 @@ Acceptance criteria from Notion: main website prototype screenshots should be re
 - Build the PHP/MySQL skeleton from the planned folder structure.
 - Add authentication, sessions, and RBAC guards.
 - Expand admin CRUD pages for users, roles, sellers, products, orders, and reviews.
+
+## 2026-06-02
+
+### Wonder-Inspired UI Refresh
+
+Task: Bring the PHP prototype visually closer to the Wonder commerce design language while keeping the repo lightweight and presentation-ready.
+
+### Completed
+
+- Reworked the shared header and footer into a warmer editorial commerce shell.
+- Replaced the grayscale design system with beige surfaces, stronger borders, accent actions, and uppercase utility styling in `assets/css/styles.css`.
+- Redesigned the home hero around search shortcuts and trust messaging instead of a simple image panel.
+- Updated listing cards, the product detail page, auth screens, checkout, seller tools, and dashboards so the prototype feels like one connected system.
+- Added clearer status notes across prototype-only flows so the current UI still communicates what backend work remains.
+
+### Still Missing
+
+- PHP sessions, authentication, and RBAC guards.
+- MySQL schema, seed data, and database connection layer.
+- Server-side CRUD actions for users, products, orders, categories, reviews, and verification.
+- Deployment to public hosting and final deliverable screenshots.

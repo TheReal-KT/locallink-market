@@ -23,6 +23,10 @@ require dirname(__DIR__) . '/includes/header.php';
       <div class="stat-card"><span>Flagged products</span><strong>3</strong></div>
       <div class="stat-card"><span>Open reviews</span><strong>11</strong></div>
     </div>
+    <div class="dashboard-callout">
+      <span>RBAC preview</span>
+      <p>The admin prototype demonstrates layout and moderation intent only. Real role enforcement, user CRUD, logs, and approval actions still need implementation.</p>
+    </div>
     <div class="table-wrap">
       <table>
         <thead>
