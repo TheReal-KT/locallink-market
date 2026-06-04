@@ -1,57 +1,55 @@
 <?php
-require __DIR__ . '/includes/data.php';
+require __DIR__ . '/includes/app.php';
 $selectedId = isset($_GET['id']) ? (int) $_GET['id'] : 1;
-$product = $products[0];
-foreach ($products as $item) {
-    if ($item['id'] === $selectedId) {
-        $product = $item;
-        break;
-    }
+$product = market_get_product_by_id($selectedId);
+
+if ($product === null) {
+    http_response_code(404);
+    $pageTitle = 'Product not found';
+    $pageDescription = 'The product you requested is no longer available.';
+    require __DIR__ . '/includes/header.php';
+    ?>
+    <section class="page section">
+      <div class="card stack">
+        <p class="eyebrow">Listing unavailable</p>
+        <h1>This product could not be found.</h1>
+        <p>The link may be outdated or the item may have been removed.</p>
+        <a class="button" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
+      </div>
+    </section>
+    <?php
+    require __DIR__ . '/includes/footer.php';
+    return;
 }
+
 $pageTitle = $product['title'];
 $pageDescription = $product['description'];
 require __DIR__ . '/includes/header.php';
 ?>
-<section class="detail-layout">
-  <div>
-    <div class="detail-media">
+<section class="page section split">
+  <div class="card">
+    <div class="product-detail-media">
       <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
     </div>
-    <div class="detail-support">
-      <div class="detail-note">
-        <span>Condition note</span>
-        <strong>Clear condition details help you decide before placing an order.</strong>
-      </div>
-      <div class="detail-note">
-        <span>Delivery note</span>
-        <strong>Delivery details can be arranged directly between the buyer and seller.</strong>
-      </div>
-      <div class="detail-note">
-        <span>Buyer overview</span>
-        <strong>Check the seller location, rating, and item details before you buy.</strong>
-      </div>
-    </div>
   </div>
-  <div class="detail-copy detail-panel">
+  <div class="card stack">
     <p class="eyebrow"><?php echo htmlspecialchars($product['category']); ?></p>
     <h1><?php echo htmlspecialchars($product['title']); ?></h1>
-    <p class="detail-price"><?php echo htmlspecialchars($product['price']); ?></p>
+    <p class="price price-large"><?php echo htmlspecialchars($product['price']); ?></p>
     <p><?php echo htmlspecialchars($product['description']); ?></p>
-    <div class="seller-card">
-      <div>
-        <strong><?php echo htmlspecialchars($product['seller']); ?></strong>
-        <span><?php echo htmlspecialchars($product['location']); ?> · Rating <?php echo htmlspecialchars($product['rating']); ?></span>
-      </div>
-      <span class="badge"><?php echo htmlspecialchars($product['status']); ?></span>
+    <div class="detail-list">
+      <div class="info-row"><strong>Category</strong><span><?php echo htmlspecialchars($product['category']); ?></span></div>
+      <div class="info-row"><strong>Stock</strong><span><?php echo htmlspecialchars($product['stock_label']); ?></span></div>
+      <div class="info-row"><strong>Status</strong><span><?php echo $product['stock'] > 0 ? 'Available to order' : 'Unavailable'; ?></span></div>
     </div>
-    <div class="hero-actions">
-      <a class="button button-dark" href="<?php echo htmlspecialchars(app_url('checkout.php')); ?>">Start order</a>
-      <a class="button button-light" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to listings</a>
+    <div class="cta-row">
+      <a class="button" href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=' . $product['id'])); ?>">Buy now</a>
+      <a class="button button-secondary" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to products</a>
     </div>
-    <div class="detail-story">
-      <div class="detail-story-item"><span>Delivery</span><strong>Seller-arranged delivery options</strong></div>
-      <div class="detail-story-item"><span>Payment</span><strong>EFT, cash, or card payment</strong></div>
-      <div class="detail-story-item"><span>Support</span><strong>Marketplace support for listing or order questions</strong></div>
+    <div class="feature-list">
+      <div>Delivery options are chosen during checkout.</div>
+      <div>Payment can be EFT, cash, or card.</div>
+      <div>Orders appear on the customer dashboard after purchase.</div>
     </div>
   </div>
 </section>

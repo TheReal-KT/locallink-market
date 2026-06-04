@@ -6,3 +6,5 @@ vendor/
 .env.*
 uploads/products/*
 !uploads/products/.gitkeep
+tmp/sessions/*
+!tmp/sessions/.gitkeep

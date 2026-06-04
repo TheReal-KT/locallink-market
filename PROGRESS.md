@@ -62,3 +62,29 @@ Task: Bring the PHP prototype visually closer to the Wonder commerce design lang
 - MySQL schema, seed data, and database connection layer.
 - Server-side CRUD actions for users, products, orders, categories, reviews, and verification.
 - Deployment to public hosting and final deliverable screenshots.
+
+## 2026-06-04
+
+### Backend Foundation Pass
+
+Tasks addressed from Notion priority queue:
+
+- Build MySQL schema and seed roles
+- Replace sample data with database queries
+- Implement authentication, sessions, and RBAC guards
+- Wire register, login, add-product, and checkout forms
+
+### Completed
+
+- Added `database/schema.sql` and `database/seed.sql` for roles, users, seller profiles, categories, products, orders, order items, reviews, and admin logs.
+- Added runtime configuration in `config/app.php` and `config/database.php` with sensible XAMPP defaults and environment overrides.
+- Added `includes/auth.php` and `includes/store.php` to handle sessions, password verification, role checks, PDO queries, and graceful fallback data.
+- Rewired `index.php`, `products.php`, `product.php`, `buyer-dashboard.php`, `seller-dashboard.php`, `register.php`, `login.php`, `add-product.php`, and `checkout.php` around the new backend helpers.
+- Added `logout.php` and updated shared header/footer navigation for signed-in users.
+- Added demo credentials and database setup instructions to `README.md`.
+
+### Still Missing
+
+- Public deployment and hosted URL testing.
+- Final screenshot capture and submission packaging.
+- Full admin CRUD screens beyond the current dashboard preview.

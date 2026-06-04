@@ -48,3 +48,8 @@ if (!function_exists('app_url')) {
         return $basePath === '' ? $normalizedPath : $basePath . $normalizedPath;
     }
 }
+
+require_once dirname(__DIR__) . '/config/app.php';
+require_once dirname(__DIR__) . '/config/database.php';
+require_once __DIR__ . '/auth.php';
+require_once __DIR__ . '/store.php';
