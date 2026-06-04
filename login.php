@@ -46,12 +46,7 @@ require __DIR__ . '/includes/header.php';
     <div class="feature-list">
       <div>Customer dashboard for order history</div>
       <div>Admin dashboard for product and store oversight</div>
-      <div>Simple seeded demo accounts after importing the SQL files</div>
-    </div>
-    <div class="card subtle-card">
-      <strong>Demo accounts</strong>
-      <p><strong>Customer:</strong> buyer@locallink.market / Buyer123!</p>
-      <p><strong>Admin:</strong> admin@locallink.market / Admin123!</p>
+      <div>Secure access for buyers, sellers, and administrators</div>
     </div>
   </div>
   <form class="card form-card" method="post" action="<?php echo htmlspecialchars(app_url('login.php')); ?>">

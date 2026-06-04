@@ -4,6 +4,7 @@ $pageTitle = $pageTitle ?? 'LocalLink Market';
 $pageDescription = $pageDescription ?? 'Simple ecommerce store with customer login and admin tools.';
 $currentUser = app_current_user();
 $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buyer-dashboard.php';
+$databaseWarning = db_is_available() ? null : market_database_unavailable_message();
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,7 +13,7 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<?php echo htmlspecialchars($pageDescription); ?>">
   <title><?php echo htmlspecialchars($pageTitle); ?> | LocalLink Market</title>
-  <link rel="stylesheet" href="<?php echo htmlspecialchars(app_url('assets/css/styles.css')); ?>">
+  <link rel="stylesheet" href="<?php echo htmlspecialchars(app_url('assets/css/styling.css')); ?>">
 </head>
 <body>
   <header class="site-header">
@@ -44,4 +45,10 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
       <?php endif; ?>
     </nav>
   </header>
+  <?php if ($databaseWarning !== null): ?>
+    <div class="site-alert" role="alert">
+      <strong>Database offline.</strong>
+      <span><?php echo htmlspecialchars($databaseWarning); ?></span>
+    </div>
+  <?php endif; ?>
   <main>

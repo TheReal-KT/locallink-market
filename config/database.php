@@ -1,5 +1,21 @@
 <?php
 
+if (!function_exists('db_set_last_error')) {
+    function db_set_last_error(?string $message): void
+    {
+        $GLOBALS['app_db_last_error'] = $message;
+    }
+}
+
+if (!function_exists('db_last_error')) {
+    function db_last_error(): ?string
+    {
+        $value = $GLOBALS['app_db_last_error'] ?? null;
+
+        return is_string($value) && $value !== '' ? $value : null;
+    }
+}
+
 if (!function_exists('db_config')) {
     function db_config(): array
     {
@@ -40,6 +56,7 @@ if (!function_exists('db_get_connection')) {
                 PDO::ATTR_EMULATE_PREPARES => false,
             ]
         );
+        db_set_last_error(null);
 
         return $connection;
     }
@@ -61,6 +78,7 @@ if (!function_exists('db_try_get_connection')) {
             $connection = db_get_connection();
         } catch (Throwable $exception) {
             $connection = null;
+            db_set_last_error($exception->getMessage());
         }
 
         return $connection;
@@ -73,4 +91,3 @@ if (!function_exists('db_is_available')) {
         return db_try_get_connection() instanceof PDO;
     }
 }
-

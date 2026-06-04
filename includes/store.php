@@ -2,7 +2,21 @@
 
 function market_database_unavailable_message(): string
 {
-    return 'Database is not connected yet. Import database/schema.sql and database/seed.sql, then update the LocalLink database settings.';
+    $config = db_config();
+    $message = sprintf(
+        'Database is not connected yet. Expected MySQL database "%s" on %s:%d for user "%s". Import database/schema.sql and database/seed.sql, then update the LocalLink database settings.',
+        $config['name'],
+        $config['host'],
+        $config['port'],
+        $config['user']
+    );
+    $lastError = db_last_error();
+
+    if ($lastError !== null) {
+        $message .= ' Last error: ' . $lastError;
+    }
+
+    return $message;
 }
 
 function market_format_money(float $amount): string
