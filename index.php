@@ -1,80 +1,99 @@
 <?php
-require __DIR__ . '/includes/data.php';
+require __DIR__ . '/includes/app.php';
+$categories = market_get_categories();
+$products = market_get_products(['limit' => 4, 'sort' => 'newest']);
 $pageTitle = 'Home';
-$pageDescription = 'Discover nearby sellers and trusted second-hand goods.';
+$pageDescription = 'Simple ecommerce storefront for browsing products and placing orders.';
 require __DIR__ . '/includes/header.php';
 ?>
-<section class="hero">
-  <div class="hero-copy">
-    <p class="eyebrow">C2C marketplace for local trade</p>
-    <h1>Buy and sell goods with people near you.</h1>
-    <p class="hero-text">LocalLink keeps the marketplace direct, readable, and practical for buyers, sellers, and admins who need a low-data responsive experience.</p>
-    <div class="hero-actions">
-      <a class="button button-dark" href="/products.php">Browse products</a>
-      <a class="button button-light" href="/add-product.php">List an item</a>
+<section class="page hero split">
+  <div class="stack">
+    <p class="eyebrow">Simple ecommerce store</p>
+    <h1>Browse products, sign in, and manage the store from one small project.</h1>
+    <p>This version keeps the project focused on the essentials: product pages, customer accounts, checkout, and an admin dashboard.</p>
+    <div class="cta-row">
+      <a class="button" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
+      <a class="button button-secondary" href="<?php echo htmlspecialchars(app_url('register.php')); ?>">Create account</a>
     </div>
   </div>
-  <div class="hero-panel" aria-label="Featured product summary">
-    <img src="/assets/images/product-phone.svg" alt="Refurbished smartphone" class="hero-product">
-    <div class="hero-card">
-      <span class="badge">Verified seller</span>
-      <h2>Refurbished smartphone</h2>
-      <p>R 2 450 · Mamelodi</p>
+  <div class="card stack">
+    <h2>Project scope</h2>
+    <div class="feature-list">
+      <div>Product listing and detail pages</div>
+      <div>Email and password login for customers</div>
+      <div>Checkout with order history</div>
+      <div>Admin dashboard with product management</div>
+    </div>
+    <div class="mini-stats">
+      <div><strong><?php echo count($categories); ?></strong><span>Categories</span></div>
+      <div><strong><?php echo count($products); ?></strong><span>Featured products</span></div>
+      <div><strong>2</strong><span>Demo roles</span></div>
     </div>
   </div>
 </section>
 
-<section class="section">
-  <div class="section-heading">
-    <p class="eyebrow">Categories</p>
-    <h2>Start with what people actually need.</h2>
+<section class="page section">
+  <div class="section-head">
+    <div>
+      <p class="eyebrow">Categories</p>
+      <h2>Shop by category</h2>
+    </div>
+    <p>Keep the homepage lightweight and point users directly to the catalog.</p>
   </div>
-  <div class="category-grid">
+  <div class="grid grid-4">
     <?php foreach ($categories as $category): ?>
-      <a class="category-card" href="/products.php">
-        <span><?php echo htmlspecialchars($category['name']); ?></span>
-        <strong><?php echo htmlspecialchars($category['count']); ?></strong>
+      <a class="card category-card" href="<?php echo htmlspecialchars(app_url('products.php?category=' . $category['id'])); ?>">
+        <strong><?php echo htmlspecialchars($category['name']); ?></strong>
+        <span><?php echo (int) $category['count']; ?> items</span>
       </a>
     <?php endforeach; ?>
   </div>
 </section>
 
-<section class="section section-compact">
-  <div class="section-heading row-heading">
+<section class="page section">
+  <div class="section-head">
     <div>
-      <p class="eyebrow">Recent listings</p>
-      <h2>Fresh products from nearby sellers.</h2>
+      <p class="eyebrow">Latest products</p>
+      <h2>Recent additions to the store</h2>
     </div>
-    <a class="text-link" href="/products.php">View all</a>
+    <a class="text-link" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">View all products</a>
   </div>
-  <div class="product-grid">
-    <?php foreach ($products as $product): ?>
-      <article class="product-card">
-        <a href="/product.php?id=<?php echo $product['id']; ?>" class="product-media">
-          <img src="/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
-        </a>
-        <div class="product-body">
-          <div class="product-meta">
-            <span><?php echo htmlspecialchars($product['category']); ?></span>
-            <span><?php echo htmlspecialchars($product['location']); ?></span>
+  <?php if ($products === []): ?>
+    <div class="card empty-state">No products are available yet. Add products from the admin dashboard after the database is connected.</div>
+  <?php else: ?>
+    <div class="grid product-grid">
+      <?php foreach ($products as $product): ?>
+        <article class="card product-card">
+          <a class="product-media" href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>">
+            <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+          </a>
+          <div class="product-body">
+            <p class="eyebrow"><?php echo htmlspecialchars($product['category']); ?></p>
+            <h3><a href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
+            <p><?php echo htmlspecialchars($product['description']); ?></p>
+            <div class="product-meta">
+              <strong class="price"><?php echo htmlspecialchars($product['price']); ?></strong>
+              <span class="badge"><?php echo htmlspecialchars($product['stock_label']); ?></span>
+            </div>
           </div>
-          <h3><a href="/product.php?id=<?php echo $product['id']; ?>"><?php echo htmlspecialchars($product['title']); ?></a></h3>
-          <p><?php echo htmlspecialchars($product['price']); ?></p>
-        </div>
-      </article>
-    <?php endforeach; ?>
-  </div>
+        </article>
+      <?php endforeach; ?>
+    </div>
+  <?php endif; ?>
 </section>
 
-<section class="section split-section">
-  <div>
-    <p class="eyebrow">Trust workflow</p>
-    <h2>Buyer, seller, and admin flows fit into one simple system.</h2>
-  </div>
-  <div class="flow-list">
-    <div><strong>1</strong><span>Seller lists a product and requests verification.</span></div>
-    <div><strong>2</strong><span>Buyer searches, compares seller details, and places an order.</span></div>
-    <div><strong>3</strong><span>Admin moderates users, products, reviews, and roles.</span></div>
+<section class="page section">
+  <div class="card split info-card">
+    <div class="stack">
+      <p class="eyebrow">Why this version</p>
+      <h2>Less code, clearer focus.</h2>
+      <p>The older seller workflow, moderation queue, and extra data model were removed so the project stays aligned with the store, login, and admin requirements.</p>
+    </div>
+    <div class="stack">
+      <div class="info-row"><strong>Storefront</strong><span>Home, catalog, product detail</span></div>
+      <div class="info-row"><strong>Customer</strong><span>Register, login, checkout, orders</span></div>
+      <div class="info-row"><strong>Admin</strong><span>Dashboard, product creation, basic reporting</span></div>
+    </div>
   </div>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

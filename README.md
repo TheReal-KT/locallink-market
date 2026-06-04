@@ -1,34 +1,54 @@
 # LocalLink Market
 
-Responsive C2C marketplace prototype for the ITECA Deliverable 2 project.
+LocalLink Market is a simplified PHP ecommerce project for a college submission. The app now focuses on three things only:
 
-## Current Scope
+- Storefront pages for browsing products
+- Customer registration, login, checkout, and order history
+- A small admin dashboard for product management and basic reporting
 
-- Customer-facing home page.
-- Product listing page with search and filter UI.
-- Product detail page with seller trust summary.
-- Register and login pages.
-- Buyer dashboard.
-- Seller dashboard.
-- Add product page.
-- Checkout mock flow.
-- Admin dashboard preview for moderation and RBAC evidence.
+## Stack
 
-## Design Direction
+- PHP
+- MySQL / MariaDB
+- Vanilla CSS and JavaScript
 
-The current visual system is deliberately black, white, and grayscale only. It uses compact layouts, plain borders, restrained radius, and responsive CSS grid patterns so it can later map cleanly to PHP/MySQL implementation.
+## What was removed
 
-## Run Locally
+- Seller registration and seller dashboard
+- Multi-role approval workflows
+- Extra moderation, review, and audit tables
+- Google or social authentication
+- Large custom styling that was not needed for the project
 
-```bash
-php -S localhost:8000
-```
+## Pages
 
-Then open `http://localhost:8000`.
+- `index.php`: homepage
+- `products.php`: product listing
+- `product.php`: product detail
+- `register.php`, `login.php`, `logout.php`: account flow
+- `checkout.php`: place an order
+- `buyer-dashboard.php`: customer account and orders
+- `admin/dashboard.php`: admin overview
+- `add-product.php`: admin product creation
 
-## Next Implementation Steps
+## Database setup
 
-1. Replace sample arrays in `includes/data.php` with MySQL queries.
-2. Add PHP auth, sessions, and RBAC checks.
-3. Build CRUD actions for products, orders, users, roles, categories, and reviews.
-4. Capture desktop, tablet, and mobile screenshots for the report.
+1. Import `database/schema.sql`.
+2. Import `database/seed.sql`.
+3. Update database settings if needed:
+   - `LOCALLINK_DB_HOST`
+   - `LOCALLINK_DB_PORT`
+   - `LOCALLINK_DB_NAME`
+   - `LOCALLINK_DB_USER`
+   - `LOCALLINK_DB_PASS`
+
+## Demo accounts
+
+- Customer: `buyer@locallink.market` / `Buyer123!`
+- Admin: `admin@locallink.market` / `Admin123!`
+
+## Notes
+
+- If MySQL is not available, sample data is used so the pages still render.
+- Session files are stored in `tmp/sessions`.
+- Product images are local SVG placeholders in `assets/images/`.
