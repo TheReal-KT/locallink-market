@@ -65,7 +65,7 @@ require __DIR__ . '/includes/header.php';
       <?php foreach ($products as $product): ?>
         <article class="card product-card">
           <a class="product-media" href="<?php echo htmlspecialchars(app_url('product.php?id=' . $product['id'])); ?>">
-            <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+            <img class="product-photo product-photo-<?php echo (int) $product['category_id']; ?>" src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
           </a>
           <div class="product-body">
             <p class="eyebrow"><?php echo htmlspecialchars($product['category']); ?></p>
