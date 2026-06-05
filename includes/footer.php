@@ -20,6 +20,9 @@
         <a href="<?php echo htmlspecialchars(app_url($currentUser ? 'logout.php' : 'register.php')); ?>">
           <?php echo $currentUser ? 'Logout' : 'Register'; ?>
         </a>
+        <?php if ($currentUser !== null): ?>
+          <a href="<?php echo htmlspecialchars(app_url('switch-mode.php?mode=seller')); ?>">Seller view</a>
+        <?php endif; ?>
         <?php if ($currentUser !== null && app_is_admin($currentUser)): ?>
           <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin dashboard</a>
         <?php endif; ?>

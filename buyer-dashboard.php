@@ -13,6 +13,7 @@ require __DIR__ . '/includes/header.php';
   <aside class="card sidebar">
     <strong>Customer account</strong>
     <a class="is-active" href="<?php echo htmlspecialchars(app_url('buyer-dashboard.php')); ?>">Orders</a>
+    <a href="<?php echo htmlspecialchars(app_url('switch-mode.php?mode=seller')); ?>">Switch to seller</a>
     <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
     <?php if (app_is_admin($currentUser)): ?>
       <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin dashboard</a>

@@ -4,6 +4,7 @@ $pageTitle = $pageTitle ?? 'LocalLink Market';
 $pageDescription = $pageDescription ?? 'Simple ecommerce store with customer login and admin tools.';
 $currentUser = app_current_user();
 $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buyer-dashboard.php';
+$accountMode = app_account_mode();
 $databaseWarning = db_is_available() ? null : market_database_unavailable_message();
 ?>
 <!doctype html>
@@ -37,6 +38,10 @@ $databaseWarning = db_is_available() ? null : market_database_unavailable_messag
         <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin</a>
       <?php endif; ?>
       <?php if ($currentUser !== null): ?>
+        <span class="mode-switch" aria-label="Account mode">
+          <a class="<?php echo $accountMode === 'buyer' ? 'is-active' : ''; ?>" href="<?php echo htmlspecialchars(app_url('switch-mode.php?mode=buyer')); ?>">Buyer</a>
+          <a class="<?php echo $accountMode === 'seller' ? 'is-active' : ''; ?>" href="<?php echo htmlspecialchars(app_url('switch-mode.php?mode=seller')); ?>">Seller</a>
+        </span>
         <a href="<?php echo htmlspecialchars(app_url($dashboardPath)); ?>">Account</a>
         <a class="nav-action" href="<?php echo htmlspecialchars(app_url('logout.php')); ?>">Logout</a>
       <?php else: ?>

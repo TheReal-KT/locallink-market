@@ -450,6 +450,17 @@ function market_create_product(array $input): int
     return (int) $pdo->lastInsertId();
 }
 
+function market_delivery_fee(string $deliveryMethod): float
+{
+    $fees = [
+        'collection' => 0.00,
+        'standard_delivery' => 45.00,
+        'express_delivery' => 85.00,
+    ];
+
+    return $fees[$deliveryMethod] ?? $fees['standard_delivery'];
+}
+
 function market_generate_order_number(PDO $pdo): string
 {
     do {
@@ -496,7 +507,7 @@ function market_create_order(
         }
 
         $orderNumber = market_generate_order_number($pdo);
-        $totalAmount = (float) $product['price'] * $quantity;
+        $totalAmount = ((float) $product['price'] * $quantity) + market_delivery_fee($deliveryMethod);
 
         $orderInsert = $pdo->prepare(
             'INSERT INTO orders (order_number, user_id, product_id, quantity, total_amount, status, delivery_method, payment_method, buyer_note)
@@ -765,4 +776,39 @@ function market_get_admin_recent_users(int $limit = 5): array
     } catch (Throwable $exception) {
         return [];
     }
+}
+
+function market_get_seller_stats(): array
+{
+    $products = market_get_products();
+    $orders = market_get_admin_recent_orders(100);
+    $stockUnits = 0;
+    $pendingOrders = 0;
+
+    foreach ($products as $product) {
+        $stockUnits += (int) $product['stock'];
+    }
+
+    foreach ($orders as $order) {
+        if ($order['status'] === 'Pending' || $order['status'] === 'Paid') {
+            $pendingOrders++;
+        }
+    }
+
+    return [
+        ['label' => 'Listings', 'value' => (string) count($products)],
+        ['label' => 'Stock units', 'value' => (string) $stockUnits],
+        ['label' => 'Received orders', 'value' => (string) count($orders)],
+        ['label' => 'Open orders', 'value' => (string) $pendingOrders],
+    ];
+}
+
+function market_get_seller_products(int $limit = 6): array
+{
+    return market_get_products(['limit' => max(1, $limit)]);
+}
+
+function market_get_seller_orders(int $limit = 6): array
+{
+    return market_get_admin_recent_orders(max(1, $limit));
 }

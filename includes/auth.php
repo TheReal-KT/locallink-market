@@ -74,6 +74,7 @@ function app_login_user(array $user): void
 function app_logout_user(): void
 {
     unset($_SESSION['auth_user_id']);
+    unset($_SESSION['account_mode']);
     session_regenerate_id(true);
 }
 
@@ -106,9 +107,21 @@ function app_is_admin(?array $user): bool
     return $user !== null && !empty($user['is_admin']);
 }
 
+function app_account_mode(): string
+{
+    $mode = (string) ($_SESSION['account_mode'] ?? 'buyer');
+
+    return $mode === 'seller' ? 'seller' : 'buyer';
+}
+
+function app_set_account_mode(string $mode): void
+{
+    $_SESSION['account_mode'] = $mode === 'seller' ? 'seller' : 'buyer';
+}
+
 function app_dashboard_path_for_user(array $user): string
 {
-    return app_is_admin($user) ? 'admin/dashboard.php' : 'buyer-dashboard.php';
+    return app_account_mode() === 'seller' ? 'seller-dashboard.php' : 'buyer-dashboard.php';
 }
 
 function app_redirect(string $path): void
