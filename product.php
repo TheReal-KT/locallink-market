@@ -43,13 +43,17 @@ require __DIR__ . '/includes/header.php';
       <div class="info-row"><strong>Status</strong><span><?php echo $product['stock'] > 0 ? 'Available to order' : 'Unavailable'; ?></span></div>
     </div>
     <div class="cta-row">
-      <a class="button" href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=' . $product['id'])); ?>">Buy now</a>
+      <?php if ($product['stock'] > 0): ?>
+        <a class="button" href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=' . $product['id'])); ?>">Buy now</a>
+      <?php else: ?>
+        <span class="button button-secondary" aria-disabled="true">Sold out</span>
+      <?php endif; ?>
       <a class="button button-secondary" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to products</a>
     </div>
     <div class="feature-list">
-      <div>Delivery options are chosen during checkout.</div>
-      <div>Payment can be EFT, cash, or card.</div>
-      <div>Orders appear on the customer dashboard after purchase.</div>
+      <div>Delivery contact details are captured during checkout.</div>
+      <div>Payment can be simulated by card, EFT, or cash.</div>
+      <div>Orders appear on the buyer dashboard and the admin overview after purchase.</div>
     </div>
   </div>
 </section>

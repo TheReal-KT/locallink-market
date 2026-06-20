@@ -41,14 +41,14 @@ if (app_is_post_request()) {
 }
 
 $pageTitle = 'Register';
-$pageDescription = 'Create a customer account.';
+$pageDescription = 'Create a buyer account.';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="page section split">
   <div class="card stack">
     <p class="eyebrow">Create account</p>
-    <h1>Register as a customer</h1>
-    <p>This simplified project no longer includes seller requests or extra role setup during registration.</p>
+    <h1>Register as a buyer</h1>
+    <p>Public registration always creates a buyer account. Admin access is assigned only in the database seed or by a database administrator.</p>
     <div class="feature-list">
       <div>Use one account to browse and order products</div>
       <div>View order history after checkout</div>
@@ -77,7 +77,7 @@ require __DIR__ . '/includes/header.php';
       <input id="register-password" name="password" type="password" placeholder="Create password">
     </div>
     <button class="button" type="submit">Create account</button>
-    <p class="hint">Use at least 8 characters. Customer registration is the only public signup flow.</p>
+    <p class="hint">Use at least 8 characters. Buyer registration is the only public signup flow.</p>
   </form>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

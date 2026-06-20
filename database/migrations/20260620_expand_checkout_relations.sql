@@ -1,50 +1,7 @@
-CREATE DATABASE IF NOT EXISTS locallink_market
-  CHARACTER SET utf8mb4
-  COLLATE utf8mb4_unicode_ci;
-
 USE locallink_market;
 
-CREATE TABLE IF NOT EXISTS users (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  full_name VARCHAR(120) NOT NULL,
-  email VARCHAR(150) NOT NULL UNIQUE,
-  password_hash VARCHAR(255) NOT NULL,
-  role ENUM('buyer', 'admin') NOT NULL DEFAULT 'buyer',
-  status ENUM('active', 'disabled') NOT NULL DEFAULT 'active',
-  is_admin TINYINT(1) NOT NULL DEFAULT 0,
-  last_login_at TIMESTAMP NULL DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE IF NOT EXISTS user_login_audit (
-  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  user_id INT UNSIGNED NOT NULL,
-  ip_address VARCHAR(45) DEFAULT NULL,
-  user_agent VARCHAR(255) DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_user_login_audit_user
-    FOREIGN KEY (user_id) REFERENCES users(id)
-    ON DELETE CASCADE
-);
-
-CREATE TABLE IF NOT EXISTS categories (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100) NOT NULL UNIQUE
-);
-
-CREATE TABLE IF NOT EXISTS products (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  category_id INT UNSIGNED NOT NULL,
-  title VARCHAR(150) NOT NULL,
-  description TEXT NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  stock INT UNSIGNED NOT NULL DEFAULT 0,
-  status ENUM('active', 'archived') NOT NULL DEFAULT 'active',
-  image_path VARCHAR(255) DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_products_category
-    FOREIGN KEY (category_id) REFERENCES categories(id)
-);
+ALTER TABLE products
+  ADD COLUMN status ENUM('active', 'archived') NOT NULL DEFAULT 'active' AFTER stock;
 
 CREATE TABLE IF NOT EXISTS product_images (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -58,22 +15,37 @@ CREATE TABLE IF NOT EXISTS product_images (
     ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS orders (
-  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  order_number VARCHAR(20) NOT NULL UNIQUE,
-  user_id INT UNSIGNED NOT NULL,
-  status ENUM('pending', 'paid', 'completed', 'cancelled') NOT NULL DEFAULT 'pending',
-  payment_status ENUM('pending', 'awaiting_confirmation', 'paid', 'failed') NOT NULL DEFAULT 'pending',
-  subtotal_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  delivery_fee DECIMAL(10,2) NOT NULL DEFAULT 0.00,
-  total_amount DECIMAL(10,2) NOT NULL,
-  delivery_method ENUM('collection', 'standard_delivery', 'express_delivery') NOT NULL DEFAULT 'collection',
-  buyer_note TEXT DEFAULT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  CONSTRAINT fk_orders_user
-    FOREIGN KEY (user_id) REFERENCES users(id)
-    ON DELETE CASCADE
-);
+ALTER TABLE orders
+  ADD COLUMN payment_status ENUM('pending', 'awaiting_confirmation', 'paid', 'failed') NOT NULL DEFAULT 'pending' AFTER status,
+  ADD COLUMN subtotal_amount DECIMAL(10,2) NOT NULL DEFAULT 0.00 AFTER payment_status,
+  ADD COLUMN delivery_fee DECIMAL(10,2) NOT NULL DEFAULT 0.00 AFTER subtotal_amount;
+
+UPDATE products
+SET status = 'active'
+WHERE status IS NULL OR status = '';
+
+INSERT INTO product_images (product_id, image_path, is_primary, sort_order)
+SELECT p.id, p.image_path, 1, 1
+FROM products p
+LEFT JOIN product_images pi ON pi.product_id = p.id AND pi.is_primary = 1
+WHERE p.image_path IS NOT NULL AND p.image_path <> '' AND pi.id IS NULL;
+
+UPDATE orders
+SET delivery_fee = CASE delivery_method
+    WHEN 'express_delivery' THEN 85.00
+    WHEN 'standard_delivery' THEN 45.00
+    ELSE 0.00
+  END,
+  subtotal_amount = GREATEST(total_amount - CASE delivery_method
+    WHEN 'express_delivery' THEN 85.00
+    WHEN 'standard_delivery' THEN 45.00
+    ELSE 0.00
+  END, 0.00),
+  payment_status = CASE payment_method
+    WHEN 'card' THEN 'paid'
+    WHEN 'eft' THEN 'awaiting_confirmation'
+    ELSE 'pending'
+  END;
 
 CREATE TABLE IF NOT EXISTS order_items (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -89,6 +61,17 @@ CREATE TABLE IF NOT EXISTS order_items (
   CONSTRAINT fk_order_items_product
     FOREIGN KEY (product_id) REFERENCES products(id)
 );
+
+INSERT INTO order_items (order_id, product_id, quantity, unit_price, line_total, created_at)
+SELECT o.id,
+       o.product_id,
+       o.quantity,
+       CASE WHEN o.quantity > 0 THEN ROUND(o.subtotal_amount / o.quantity, 2) ELSE 0.00 END,
+       o.subtotal_amount,
+       o.created_at
+FROM orders o
+LEFT JOIN order_items oi ON oi.order_id = o.id
+WHERE oi.id IS NULL;
 
 CREATE TABLE IF NOT EXISTS order_addresses (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -107,6 +90,17 @@ CREATE TABLE IF NOT EXISTS order_addresses (
     ON DELETE CASCADE
 );
 
+INSERT INTO order_addresses (order_id, contact_name, phone_number, collection_note, created_at)
+SELECT o.id,
+       u.full_name,
+       'Not captured',
+       o.buyer_note,
+       o.created_at
+FROM orders o
+INNER JOIN users u ON u.id = o.user_id
+LEFT JOIN order_addresses oa ON oa.order_id = o.id
+WHERE oa.id IS NULL;
+
 CREATE TABLE IF NOT EXISTS order_payments (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   order_id INT UNSIGNED NOT NULL,
@@ -121,11 +115,20 @@ CREATE TABLE IF NOT EXISTS order_payments (
     ON DELETE CASCADE
 );
 
+INSERT INTO order_payments (order_id, payment_method, payment_status, provider_reference, paid_at, created_at)
+SELECT o.id,
+       o.payment_method,
+       o.payment_status,
+       CONCAT('LEGACY-', o.order_number),
+       CASE WHEN o.payment_status = 'paid' THEN o.created_at ELSE NULL END,
+       o.created_at
+FROM orders o
+LEFT JOIN order_payments op ON op.order_id = o.id
+WHERE op.id IS NULL;
+
 CREATE INDEX idx_products_category_status ON products(category_id, status);
 CREATE INDEX idx_product_images_product_primary ON product_images(product_id, is_primary, sort_order);
 CREATE INDEX idx_orders_user_status ON orders(user_id, status);
 CREATE INDEX idx_orders_payment_status ON orders(payment_status);
 CREATE INDEX idx_order_items_order ON order_items(order_id);
 CREATE INDEX idx_order_items_product ON order_items(product_id);
-CREATE INDEX idx_user_login_audit_user_created ON user_login_audit(user_id, created_at);
-CREATE INDEX idx_users_role_status ON users(role, status);

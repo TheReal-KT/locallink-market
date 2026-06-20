@@ -3,13 +3,7 @@
 require __DIR__ . '/includes/app.php';
 
 $currentUser = app_require_login();
-$mode = (string) ($_GET['mode'] ?? 'buyer');
 
-app_set_account_mode($mode);
-app_set_flash('success', 'Switched to ' . (app_account_mode() === 'seller' ? 'seller' : 'buyer') . ' view.');
-
-if (app_account_mode() === 'seller') {
-    app_redirect('seller-dashboard.php');
-}
-
-app_redirect('buyer-dashboard.php');
+app_set_account_mode('buyer');
+app_set_flash('success', 'Your account view is based on your login role.');
+app_redirect(app_dashboard_path_for_user($currentUser));

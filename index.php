@@ -3,14 +3,14 @@ require __DIR__ . '/includes/app.php';
 $categories = market_get_categories();
 $products = market_get_products(['limit' => 4, 'sort' => 'newest']);
 $pageTitle = 'Home';
-$pageDescription = 'Simple ecommerce storefront for browsing products and placing orders.';
+$pageDescription = 'Simple ecommerce storefront for buyers and admins.';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="page hero split">
   <div class="stack">
     <p class="eyebrow">Simple ecommerce store</p>
     <h1>Browse products, sign in, and manage the store from one small project.</h1>
-    <p>This version keeps the project focused on the essentials: product pages, customer accounts, checkout, and an admin dashboard.</p>
+    <p>This version keeps the project focused on the essentials: product pages, buyer accounts, checkout, and an admin dashboard.</p>
     <div class="cta-row">
       <a class="button" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
       <a class="button button-secondary" href="<?php echo htmlspecialchars(app_url('register.php')); ?>">Create account</a>
@@ -20,7 +20,7 @@ require __DIR__ . '/includes/header.php';
     <h2>Project scope</h2>
     <div class="feature-list">
       <div>Product listing and detail pages</div>
-      <div>Email and password login for customers</div>
+      <div>Email and password login for buyers</div>
       <div>Checkout with order history</div>
       <div>Admin dashboard with product management</div>
     </div>
@@ -87,11 +87,11 @@ require __DIR__ . '/includes/header.php';
     <div class="stack">
       <p class="eyebrow">Why this version</p>
       <h2>Less code, clearer focus.</h2>
-      <p>The older seller workflow, moderation queue, and extra data model were removed so the project stays aligned with the store, login, and admin requirements.</p>
+      <p>Extra account workflows, moderation queues, and unused data screens were removed so the project stays aligned with the buyer, store, login, and admin requirements.</p>
     </div>
     <div class="stack">
       <div class="info-row"><strong>Storefront</strong><span>Home, catalog, product detail</span></div>
-      <div class="info-row"><strong>Customer</strong><span>Register, login, checkout, orders</span></div>
+      <div class="info-row"><strong>Buyer</strong><span>Register, login, checkout, orders</span></div>
       <div class="info-row"><strong>Admin</strong><span>Dashboard, product creation, basic reporting</span></div>
     </div>
   </div>

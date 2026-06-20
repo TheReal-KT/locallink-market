@@ -63,7 +63,7 @@ require __DIR__ . '/includes/header.php';
   <div class="card stack">
     <p class="eyebrow">Admin product management</p>
     <h1>Add a new product</h1>
-    <p>Products are now created from the admin side instead of a separate seller workflow.</p>
+    <p>Products are created from the admin side so catalog changes stay under staff control.</p>
     <div class="feature-list">
       <div>Choose a category</div>
       <div>Set the price and stock</div>

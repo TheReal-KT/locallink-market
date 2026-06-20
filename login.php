@@ -42,11 +42,11 @@ require __DIR__ . '/includes/header.php';
   <div class="card stack">
     <p class="eyebrow">Account login</p>
     <h1>Sign in</h1>
-    <p>This project now uses only standard email and password login. Social login and role-heavy auth were removed.</p>
+    <p>This project uses standard email and password login. The database role on the account decides whether the user opens the admin dashboard or buyer dashboard.</p>
     <div class="feature-list">
-      <div>Customer dashboard for order history</div>
+      <div>Buyer dashboard for order history</div>
       <div>Admin dashboard for product and store oversight</div>
-      <div>Secure access for buyers, sellers, and administrators</div>
+      <div>Secure access for buyers and administrators</div>
     </div>
   </div>
   <form class="card form-card" method="post" action="<?php echo htmlspecialchars(app_url('login.php')); ?>">

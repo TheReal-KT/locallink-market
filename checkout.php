@@ -1,6 +1,6 @@
 <?php
 require __DIR__ . '/includes/app.php';
-$currentUser = app_require_login();
+$currentUser = app_require_buyer();
 
 $productId = max(0, (int) ($_POST['product_id'] ?? $_GET['product_id'] ?? 0));
 if ($productId < 1) {
@@ -15,6 +15,12 @@ $form = [
     'payment' => 'card',
     'quantity' => '1',
     'notes' => '',
+    'contact_name' => (string) ($currentUser['full_name'] ?? ''),
+    'phone_number' => '',
+    'address_line_1' => '',
+    'address_line_2' => '',
+    'city' => '',
+    'postal_code' => '',
     'card_name' => '',
     'card_number' => '',
     'card_expiry' => '',
@@ -26,6 +32,12 @@ if (app_is_post_request()) {
     $form['payment'] = (string) ($_POST['payment'] ?? 'card');
     $form['quantity'] = trim((string) ($_POST['quantity'] ?? '1'));
     $form['notes'] = trim((string) ($_POST['notes'] ?? ''));
+    $form['contact_name'] = trim((string) ($_POST['contact_name'] ?? ''));
+    $form['phone_number'] = preg_replace('/\D+/', '', (string) ($_POST['phone_number'] ?? ''));
+    $form['address_line_1'] = trim((string) ($_POST['address_line_1'] ?? ''));
+    $form['address_line_2'] = trim((string) ($_POST['address_line_2'] ?? ''));
+    $form['city'] = trim((string) ($_POST['city'] ?? ''));
+    $form['postal_code'] = trim((string) ($_POST['postal_code'] ?? ''));
     $form['card_name'] = trim((string) ($_POST['card_name'] ?? ''));
     $form['card_number'] = preg_replace('/\D+/', '', (string) ($_POST['card_number'] ?? ''));
     $form['card_expiry'] = trim((string) ($_POST['card_expiry'] ?? ''));
@@ -41,6 +53,28 @@ if (app_is_post_request()) {
 
     if (!in_array($form['payment'], ['eft', 'cash', 'card'], true)) {
         $errors[] = 'Choose a valid payment method.';
+    }
+
+    if ($form['contact_name'] === '') {
+        $errors[] = 'Enter the customer contact name.';
+    }
+
+    if (strlen($form['phone_number']) < 10 || strlen($form['phone_number']) > 15) {
+        $errors[] = 'Enter a valid contact phone number.';
+    }
+
+    if ($form['delivery'] !== 'collection') {
+        if ($form['address_line_1'] === '') {
+            $errors[] = 'Enter the delivery address line 1.';
+        }
+
+        if ($form['city'] === '') {
+            $errors[] = 'Enter the delivery city.';
+        }
+
+        if ($form['postal_code'] === '') {
+            $errors[] = 'Enter the delivery postal code.';
+        }
     }
 
     if ($form['payment'] === 'card') {
@@ -71,14 +105,20 @@ if (app_is_post_request()) {
 
     if ($errors === []) {
         try {
-            $orderNumber = market_create_order(
-                (int) $currentUser['id'],
-                (int) $product['id'],
-                (int) $form['quantity'],
-                $form['delivery'],
-                $form['payment'],
-                $form['notes']
-            );
+            $orderNumber = market_create_order([
+                'user_id' => (int) $currentUser['id'],
+                'product_id' => (int) $product['id'],
+                'quantity' => (int) $form['quantity'],
+                'delivery_method' => $form['delivery'],
+                'payment_method' => $form['payment'],
+                'buyer_note' => $form['notes'],
+                'contact_name' => $form['contact_name'],
+                'phone_number' => $form['phone_number'],
+                'address_line_1' => $form['address_line_1'],
+                'address_line_2' => $form['address_line_2'],
+                'city' => $form['city'],
+                'postal_code' => $form['postal_code'],
+            ]);
             app_set_flash('success', 'Order #' . $orderNumber . ' was placed successfully.');
             app_redirect('buyer-dashboard.php');
         } catch (Throwable $exception) {
@@ -88,7 +128,7 @@ if (app_is_post_request()) {
 }
 
 $pageTitle = 'Checkout';
-$pageDescription = 'Review your product and place the order.';
+$pageDescription = 'Review your product, customer details, and simulated payment.';
 $unitPrice = (float) ($product['price_amount'] ?? 0);
 $quantity = ctype_digit($form['quantity']) ? max(1, (int) $form['quantity']) : 1;
 $subtotal = $unitPrice * $quantity;
@@ -140,8 +180,18 @@ require __DIR__ . '/includes/header.php';
 
       <section class="checkout-block">
         <div>
-          <p class="eyebrow">2. Delivery</p>
-          <h2>Choose handover</h2>
+          <p class="eyebrow">2. Delivery contact</p>
+          <h2>Customer and handover details</h2>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="contact-name">Contact name</label>
+            <input id="contact-name" name="contact_name" type="text" placeholder="Customer name" value="<?php echo htmlspecialchars($form['contact_name']); ?>">
+          </div>
+          <div class="field">
+            <label for="phone-number">Phone number</label>
+            <input id="phone-number" name="phone_number" type="tel" inputmode="tel" placeholder="0812345678" value="<?php echo htmlspecialchars($form['phone_number']); ?>">
+          </div>
         </div>
         <div class="choice-grid">
           <label class="choice-card">
@@ -156,9 +206,27 @@ require __DIR__ . '/includes/header.php';
           </label>
           <label class="choice-card">
             <input type="radio" name="delivery" value="collection" data-delivery-fee="0" <?php echo $form['delivery'] === 'collection' ? 'checked' : ''; ?>>
-            <span>Collect from seller</span>
+            <span>Collect from store</span>
             <strong>Free</strong>
           </label>
+        </div>
+        <div class="field">
+          <label for="address-line-1">Address line 1</label>
+          <input id="address-line-1" name="address_line_1" type="text" placeholder="Required for delivery orders" value="<?php echo htmlspecialchars($form['address_line_1']); ?>">
+        </div>
+        <div class="field">
+          <label for="address-line-2">Address line 2</label>
+          <input id="address-line-2" name="address_line_2" type="text" placeholder="Apartment, room, or landmark" value="<?php echo htmlspecialchars($form['address_line_2']); ?>">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" placeholder="Johannesburg" value="<?php echo htmlspecialchars($form['city']); ?>">
+          </div>
+          <div class="field">
+            <label for="postal-code">Postal code</label>
+            <input id="postal-code" name="postal_code" type="text" placeholder="2000" value="<?php echo htmlspecialchars($form['postal_code']); ?>">
+          </div>
         </div>
       </section>
 
@@ -171,17 +239,17 @@ require __DIR__ . '/includes/header.php';
           <label class="choice-card">
             <input type="radio" name="payment" value="card" <?php echo $form['payment'] === 'card' ? 'checked' : ''; ?>>
             <span>Mock card</span>
-            <strong>Instant</strong>
+            <strong>Marks payment as paid</strong>
           </label>
           <label class="choice-card">
             <input type="radio" name="payment" value="eft" <?php echo $form['payment'] === 'eft' ? 'checked' : ''; ?>>
             <span>EFT</span>
-            <strong>Manual</strong>
+            <strong>Awaits confirmation</strong>
           </label>
           <label class="choice-card">
             <input type="radio" name="payment" value="cash" <?php echo $form['payment'] === 'cash' ? 'checked' : ''; ?>>
             <span>Cash</span>
-            <strong>On handover</strong>
+            <strong>Pay on handover</strong>
           </label>
         </div>
         <div class="payment-card">
@@ -210,7 +278,7 @@ require __DIR__ . '/includes/header.php';
       <section class="checkout-block">
         <div>
           <p class="eyebrow">4. Notes</p>
-          <h2>Message the seller</h2>
+          <h2>Order notes</h2>
         </div>
         <div class="field">
           <label for="notes">Order notes</label>
@@ -231,11 +299,12 @@ require __DIR__ . '/includes/header.php';
       <div class="info-row"><strong>Item price</strong><span><?php echo htmlspecialchars($product['price'] ?? market_format_money(0)); ?></span></div>
       <div class="info-row"><strong>Subtotal</strong><span data-subtotal><?php echo htmlspecialchars(market_format_money($subtotal)); ?></span></div>
       <div class="info-row"><strong>Delivery</strong><span data-delivery-total><?php echo htmlspecialchars(market_format_money($deliveryFee)); ?></span></div>
-      <div class="info-row"><strong>Payment status</strong><span>Simulated</span></div>
+      <div class="info-row"><strong>Delivery type</strong><span><?php echo htmlspecialchars(market_humanize_delivery_method($form['delivery'])); ?></span></div>
+      <div class="info-row"><strong>Payment mode</strong><span><?php echo htmlspecialchars(market_humanize_payment_method($form['payment'])); ?></span></div>
     </div>
     <div class="checkout-steps">
       <span>Review</span>
-      <span>Delivery</span>
+      <span>Contact</span>
       <span>Payment</span>
       <span>Saved order</span>
     </div>
