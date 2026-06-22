@@ -1,9 +1,10 @@
 <?php
 require_once __DIR__ . '/app.php';
 $pageTitle = $pageTitle ?? 'LocalLink Market';
-$pageDescription = $pageDescription ?? 'Simple ecommerce store with customer login and admin tools.';
+$pageDescription = $pageDescription ?? 'Local marketplace with buyer, seller, and admin tools.';
 $currentUser = app_current_user();
 $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buyer-dashboard.php';
+$databaseWarning = db_is_available() ? null : market_database_unavailable_message();
 ?>
 <!doctype html>
 <html lang="en">
@@ -12,7 +13,7 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="<?php echo htmlspecialchars($pageDescription); ?>">
   <title><?php echo htmlspecialchars($pageTitle); ?> | LocalLink Market</title>
-  <link rel="stylesheet" href="<?php echo htmlspecialchars(app_url('assets/css/styles.css')); ?>">
+  <link rel="stylesheet" href="<?php echo htmlspecialchars(app_url('assets/css/styling.css')); ?>">
 </head>
 <body>
   <header class="site-header">
@@ -20,7 +21,7 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
       <span class="brand-mark">LL</span>
       <span class="brand-copy">
         <span class="brand-name">LocalLink Market</span>
-        <span class="brand-note">Simple college ecommerce project</span>
+        <span class="brand-note">Local buyer, seller, and admin marketplace</span>
       </span>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
@@ -31,9 +32,14 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
     <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
       <a href="<?php echo htmlspecialchars(app_url('index.php')); ?>">Home</a>
       <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Products</a>
+      <?php if ($currentUser !== null && app_is_seller($currentUser)): ?>
+        <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Seller</a>
+      <?php elseif ($currentUser !== null && app_is_buyer($currentUser)): ?>
+        <a href="<?php echo htmlspecialchars(app_url('seller-profile.php')); ?>">Become a seller</a>
+      <?php endif; ?>
       <?php if ($currentUser !== null && app_is_admin($currentUser)): ?>
-        <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
         <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin</a>
+        <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
       <?php endif; ?>
       <?php if ($currentUser !== null): ?>
         <a href="<?php echo htmlspecialchars(app_url($dashboardPath)); ?>">Account</a>
@@ -44,4 +50,10 @@ $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buy
       <?php endif; ?>
     </nav>
   </header>
+  <?php if ($databaseWarning !== null): ?>
+    <div class="site-alert" role="alert">
+      <strong>Database offline.</strong>
+      <span><?php echo htmlspecialchars($databaseWarning); ?></span>
+    </div>
+  <?php endif; ?>
   <main>

@@ -74,6 +74,7 @@ function app_login_user(array $user): void
 function app_logout_user(): void
 {
     unset($_SESSION['auth_user_id']);
+    unset($_SESSION['account_mode']);
     session_regenerate_id(true);
 }
 
@@ -94,21 +95,66 @@ function app_current_user(): ?array
 
     $user = market_get_user_by_id((int) $_SESSION['auth_user_id']);
 
-    if ($user === null) {
+    if ($user === null || !app_user_can_login($user)) {
         unset($_SESSION['auth_user_id']);
+        $user = null;
     }
 
     return $user;
 }
 
+function app_user_role(?array $user): string
+{
+    if ($user === null) {
+        return 'guest';
+    }
+
+    return market_normalize_role($user);
+}
+
+function app_user_can_login(array $user): bool
+{
+    return (string) ($user['status'] ?? 'active') === 'active';
+}
+
 function app_is_admin(?array $user): bool
 {
-    return $user !== null && !empty($user['is_admin']);
+    return app_user_role($user) === 'admin';
+}
+
+function app_is_seller(?array $user): bool
+{
+    return app_user_role($user) === 'seller';
+}
+
+function app_is_buyer(?array $user): bool
+{
+    return app_user_role($user) === 'buyer';
+}
+
+function app_account_mode(): string
+{
+    return app_user_role(app_current_user());
+}
+
+function app_set_account_mode(string $mode): void
+{
+    $_SESSION['account_mode'] = $mode;
 }
 
 function app_dashboard_path_for_user(array $user): string
 {
-    return app_is_admin($user) ? 'admin/dashboard.php' : 'buyer-dashboard.php';
+    $role = app_user_role($user);
+
+    if ($role === 'admin') {
+        return 'admin/dashboard.php';
+    }
+
+    if ($role === 'seller') {
+        return 'seller-dashboard.php';
+    }
+
+    return 'buyer-dashboard.php';
 }
 
 function app_redirect(string $path): void
@@ -138,5 +184,29 @@ function app_require_admin(): array
     }
 
     app_set_flash('error', 'Admin access is required for that page.');
-    app_redirect('buyer-dashboard.php');
+    app_redirect(app_dashboard_path_for_user($user));
+}
+
+function app_require_seller(): array
+{
+    $user = app_require_login();
+
+    if (app_is_seller($user)) {
+        return $user;
+    }
+
+    app_set_flash('error', 'Seller access is required for that page.');
+    app_redirect(app_dashboard_path_for_user($user));
+}
+
+function app_require_buyer(): array
+{
+    $user = app_require_login();
+
+    if (app_is_buyer($user)) {
+        return $user;
+    }
+
+    app_set_flash('error', 'Buyer access is required for that page.');
+    app_redirect(app_dashboard_path_for_user($user));
 }

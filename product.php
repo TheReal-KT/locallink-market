@@ -27,9 +27,9 @@ $pageDescription = $product['description'];
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="page section split">
-  <div class="card">
+  <div class="card media-card">
     <div class="product-detail-media">
-      <img src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
+      <img class="product-photo product-photo-<?php echo (int) $product['category_id']; ?>" src="<?php echo htmlspecialchars(app_url($product['image'])); ?>" alt="<?php echo htmlspecialchars($product['title']); ?>">
     </div>
   </div>
   <div class="card stack">
@@ -38,18 +38,25 @@ require __DIR__ . '/includes/header.php';
     <p class="price price-large"><?php echo htmlspecialchars($product['price']); ?></p>
     <p><?php echo htmlspecialchars($product['description']); ?></p>
     <div class="detail-list">
+      <div class="info-row"><strong>Seller</strong><span><?php echo htmlspecialchars($product['seller_name']); ?></span></div>
+      <div class="info-row"><strong>Seller location</strong><span><?php echo htmlspecialchars($product['seller_location'] !== '' ? $product['seller_location'] : 'South Africa'); ?></span></div>
+      <div class="info-row"><strong>Seller rating</strong><span><?php echo htmlspecialchars($product['rating_label']); ?></span></div>
       <div class="info-row"><strong>Category</strong><span><?php echo htmlspecialchars($product['category']); ?></span></div>
       <div class="info-row"><strong>Stock</strong><span><?php echo htmlspecialchars($product['stock_label']); ?></span></div>
-      <div class="info-row"><strong>Status</strong><span><?php echo $product['stock'] > 0 ? 'Available to order' : 'Unavailable'; ?></span></div>
+      <div class="info-row"><strong>Status</strong><span><?php echo htmlspecialchars($product['status_label']); ?></span></div>
     </div>
     <div class="cta-row">
-      <a class="button" href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=' . $product['id'])); ?>">Buy now</a>
+      <?php if ($product['stock'] > 0): ?>
+        <a class="button" href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=' . $product['id'])); ?>">Buy now</a>
+      <?php else: ?>
+        <span class="button button-secondary" aria-disabled="true">Sold out</span>
+      <?php endif; ?>
       <a class="button button-secondary" href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Back to products</a>
     </div>
     <div class="feature-list">
-      <div>Delivery options are chosen during checkout.</div>
-      <div>Payment can be EFT, cash, or card.</div>
-      <div>Orders appear on the customer dashboard after purchase.</div>
+      <div>Delivery contact details are captured during checkout.</div>
+      <div>Payment can be simulated by card, EFT, or cash.</div>
+      <div>Completed orders can be reviewed from the buyer dashboard.</div>
     </div>
   </div>
 </section>

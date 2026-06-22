@@ -1,0 +1,188 @@
+<mxfile host="app.diagrams.net" modified="2026-06-05T00:00:00.000Z" agent="Codex" version="24.7.17" type="device">
+  <diagram id="crc-cards" name="A. CRC Cards">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="crc-title" value="LocalLink Market - CRC Cards" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1A2126;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-note" value="Main classes, responsibilities, and collaborators for the simplified PHP/MySQL e-commerce app." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#66746F;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="760" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-user" value="&lt;b&gt;Customer/User&lt;/b&gt;&lt;br&gt;&lt;br&gt;Responsibilities:&lt;br&gt;- Register or log in&lt;br&gt;- Browse products&lt;br&gt;- Place orders&lt;br&gt;&lt;br&gt;Collaborators:&lt;br&gt;Order, Product" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="60" y="130" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-product" value="&lt;b&gt;Product Catalog&lt;/b&gt;&lt;br&gt;&lt;br&gt;Responsibilities:&lt;br&gt;- List products by category&lt;br&gt;- Show product details&lt;br&gt;- Track price and stock&lt;br&gt;&lt;br&gt;Collaborators:&lt;br&gt;Category, Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;align=left;verticalAlign=top;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="340" y="130" width="260" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-order" value="&lt;b&gt;Order&lt;/b&gt;&lt;br&gt;&lt;br&gt;Responsibilities:&lt;br&gt;- Store checkout details&lt;br&gt;- Calculate total amount&lt;br&gt;- Reduce stock after purchase&lt;br&gt;&lt;br&gt;Collaborators:&lt;br&gt;Customer, Product" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="60" y="350" width="240" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-admin" value="&lt;b&gt;Admin Dashboard&lt;/b&gt;&lt;br&gt;&lt;br&gt;Responsibilities:&lt;br&gt;- Add products&lt;br&gt;- View reports&lt;br&gt;- Review recent orders&lt;br&gt;&lt;br&gt;Collaborators:&lt;br&gt;Product, Order, User" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;align=left;verticalAlign=top;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="340" y="350" width="260" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="crc-db" value="&lt;b&gt;Database Layer&lt;/b&gt;&lt;br&gt;&lt;br&gt;Responsibilities:&lt;br&gt;- Connect to MySQL&lt;br&gt;- Read/write users, products, orders&lt;br&gt;- Provide fallback sample data&lt;br&gt;&lt;br&gt;Collaborators:&lt;br&gt;All modules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3EC;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=14;" vertex="1" parent="1">
+          <mxGeometry x="640" y="240" width="280" height="190" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="eerd" name="B. EERD">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eerd-title" value="LocalLink Market - Enhanced Entity Relationship Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1A2126;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="720" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="users" value="&lt;b&gt;users&lt;/b&gt;&lt;hr&gt;PK id&lt;br&gt;full_name&lt;br&gt;email&lt;br&gt;password_hash&lt;br&gt;is_admin&lt;br&gt;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="140" width="230" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="categories" value="&lt;b&gt;categories&lt;/b&gt;&lt;hr&gt;PK id&lt;br&gt;name&lt;br&gt;description&lt;br&gt;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="140" width="230" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="orders" value="&lt;b&gt;orders&lt;/b&gt;&lt;hr&gt;PK id&lt;br&gt;order_number&lt;br&gt;FK user_id&lt;br&gt;FK product_id&lt;br&gt;quantity&lt;br&gt;total_amount&lt;br&gt;status&lt;br&gt;delivery_method&lt;br&gt;payment_method" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="100" y="430" width="250" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="products" value="&lt;b&gt;products&lt;/b&gt;&lt;hr&gt;PK id&lt;br&gt;FK category_id&lt;br&gt;title&lt;br&gt;description&lt;br&gt;price&lt;br&gt;stock&lt;br&gt;image_path&lt;br&gt;created_at" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="650" y="430" width="250" height="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" value="1 user places many orders" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="users" target="orders">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" value="1 product appears in many orders" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="products" target="orders">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" value="1 category groups many products" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="categories" target="products">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="context" name="C. Context Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="context-title" value="LocalLink Market - Context Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1A2126;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="context-customer" value="Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3EC;strokeColor=#0C796D;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="120" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="context-admin" value="Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3EC;strokeColor=#0C796D;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="800" y="260" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="context-system" value="&lt;b&gt;LocalLink Market&lt;/b&gt;&lt;br&gt;PHP storefront&lt;br&gt;checkout&lt;br&gt;admin dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="410" y="220" width="250" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="context-db" value="MySQL Database&lt;br&gt;locallink_market" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFF7E5;strokeColor=#EBAA44;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="435" y="500" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c1" value="browse, register, checkout" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="context-customer" target="context-system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2" value="manage products, view reports" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="context-admin" target="context-system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c3" value="read/write data" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="context-system" target="context-db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dfd" name="D. Data Flow Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dfd-title" value="LocalLink Market - Data Flow Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1A2126;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-customer" value="Customer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3EC;strokeColor=#0C796D;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="70" y="220" width="140" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-admin" value="Admin" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E5F3EC;strokeColor=#0C796D;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="70" y="520" width="140" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-browse" value="&lt;b&gt;1. Browse Products&lt;/b&gt;&lt;br&gt;Search, filter, view details" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="150" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-auth" value="&lt;b&gt;2. Authenticate User&lt;/b&gt;&lt;br&gt;Register, login, session" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="285" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-checkout" value="&lt;b&gt;3. Checkout Order&lt;/b&gt;&lt;br&gt;Quantity, delivery, payment method" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="420" width="250" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-admin-products" value="&lt;b&gt;4. Admin Products&lt;/b&gt;&lt;br&gt;Create listings, view reports" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="320" y="570" width="230" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-store" value="&lt;b&gt;Store Logic&lt;/b&gt;&lt;br&gt;includes/store.php" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="700" y="330" width="190" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="dfd-db" value="MySQL DB" style="shape=cylinder3d;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#FFF7E5;strokeColor=#EBAA44;fontStyle=1;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="980" y="330" width="140" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="d1" value="request" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-customer" target="dfd-browse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d2" value="login" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-customer" target="dfd-auth"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d3" value="checkout" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-customer" target="dfd-checkout"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d4" value="manage" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-admin" target="dfd-admin-products"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d5" value="product data" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-browse" target="dfd-store"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d6" value="user data" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-auth" target="dfd-store"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d7" value="order data" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-checkout" target="dfd-store"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d8" value="admin data" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-admin-products" target="dfd-store"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="d9" value="SQL read/write" style="endArrow=block;html=1;rounded=0;strokeColor=#B9A98D;fontColor=#66746F;" edge="1" parent="1" source="dfd-store" target="dfd-db"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="use-case" name="E. Use Case Diagram">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="uc-title" value="LocalLink Market - Use Case Diagram" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#1A2126;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="520" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-boundary" value="LocalLink Market" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFFDF6;strokeColor=#B9A98D;fontSize=15;fontStyle=1;verticalAlign=top;spacingTop=12;" vertex="1" parent="1">
+          <mxGeometry x="300" y="120" width="540" height="520" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-customer" value="Customer" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#0C796D;fontColor=#1A2126;" vertex="1" parent="1">
+          <mxGeometry x="110" y="290" width="70" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-admin" value="Admin" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;strokeColor=#0C796D;fontColor=#1A2126;" vertex="1" parent="1">
+          <mxGeometry x="940" y="290" width="70" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-login" value="Register / Login" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="390" y="190" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-browse" value="Browse Products" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="610" y="190" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-details" value="View Product Details" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="190" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-checkout" value="Checkout Order" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="390" y="430" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-history" value="View Order History" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#0C796D;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="610" y="430" width="180" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-add" value="Add Product" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="390" y="540" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="uc-reports" value="View Reports" style="ellipse;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#EBAA44;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="620" y="540" width="170" height="55" as="geometry" />
+        </mxCell>
+        <mxCell id="u1" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-customer" target="uc-login"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u2" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-customer" target="uc-browse"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u3" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-customer" target="uc-details"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u4" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-customer" target="uc-checkout"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u5" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-customer" target="uc-history"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u6" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-admin" target="uc-add"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u7" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-admin" target="uc-reports"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="u8" value="" style="endArrow=none;html=1;rounded=0;strokeColor=#B9A98D;" edge="1" parent="1" source="uc-admin" target="uc-history"><mxGeometry relative="1" as="geometry" /></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

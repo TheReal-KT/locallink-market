@@ -31,7 +31,7 @@ if (app_is_post_request()) {
 
     if ($errors === []) {
         try {
-            market_create_user($form['name'], $form['email'], $password);
+            market_create_user($form['name'], $form['email'], $password, 'buyer');
             app_set_flash('success', 'Account created successfully. Sign in to continue.');
             app_redirect('login.php');
         } catch (Throwable $exception) {
@@ -41,18 +41,18 @@ if (app_is_post_request()) {
 }
 
 $pageTitle = 'Register';
-$pageDescription = 'Create a customer account.';
+$pageDescription = 'Create a buyer account and apply for seller access later.';
 require __DIR__ . '/includes/header.php';
 ?>
 <section class="page section split">
   <div class="card stack">
     <p class="eyebrow">Create account</p>
-    <h1>Register as a customer</h1>
-    <p>This simplified project no longer includes seller requests or extra role setup during registration.</p>
+    <h1>Register for LocalLink</h1>
+    <p>Public registration creates a buyer account first. After you sign in, you can apply for seller access from your account area.</p>
     <div class="feature-list">
-      <div>Use one account to browse and order products</div>
-      <div>View order history after checkout</div>
-      <div>Admin accounts are seeded from the database instead of the public form</div>
+      <div>Browse and order products as a buyer</div>
+      <div>View your order history and leave reviews</div>
+      <div>Apply for seller verification after signup</div>
     </div>
   </div>
   <form class="card form-card" method="post" action="<?php echo htmlspecialchars(app_url('register.php')); ?>">
@@ -77,7 +77,7 @@ require __DIR__ . '/includes/header.php';
       <input id="register-password" name="password" type="password" placeholder="Create password">
     </div>
     <button class="button" type="submit">Create account</button>
-    <p class="hint">Use at least 8 characters. Customer registration is the only public signup flow.</p>
+    <p class="hint">Use at least 8 characters. Seller and admin access are granted after registration, not through the public form.</p>
   </form>
 </section>
 <?php require __DIR__ . '/includes/footer.php'; ?>

@@ -4,13 +4,15 @@
     <div class="footer-grid">
       <div>
         <h3>LocalLink Market</h3>
-        <p>Simple ecommerce pages, email and password login, checkout, and a small admin dashboard.</p>
+        <p>Storefront, seller management, buyer checkout, and full admin moderation in one PHP/MySQL project.</p>
       </div>
       <div>
         <h3>Store</h3>
         <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Browse products</a>
         <a href="<?php echo htmlspecialchars(app_url('product.php?id=1')); ?>">Featured product</a>
-        <a href="<?php echo htmlspecialchars(app_url('checkout.php?product_id=1')); ?>">Checkout</a>
+        <?php if ($currentUser !== null && app_is_buyer($currentUser)): ?>
+          <a href="<?php echo htmlspecialchars(app_url('buyer-dashboard.php')); ?>">My orders</a>
+        <?php endif; ?>
       </div>
       <div>
         <h3>Account</h3>
@@ -20,6 +22,9 @@
         <a href="<?php echo htmlspecialchars(app_url($currentUser ? 'logout.php' : 'register.php')); ?>">
           <?php echo $currentUser ? 'Logout' : 'Register'; ?>
         </a>
+        <?php if ($currentUser !== null && app_is_seller($currentUser)): ?>
+          <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Seller dashboard</a>
+        <?php endif; ?>
         <?php if ($currentUser !== null && app_is_admin($currentUser)): ?>
           <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin dashboard</a>
         <?php endif; ?>
