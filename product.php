@@ -38,9 +38,12 @@ require __DIR__ . '/includes/header.php';
     <p class="price price-large"><?php echo htmlspecialchars($product['price']); ?></p>
     <p><?php echo htmlspecialchars($product['description']); ?></p>
     <div class="detail-list">
+      <div class="info-row"><strong>Seller</strong><span><?php echo htmlspecialchars($product['seller_name']); ?></span></div>
+      <div class="info-row"><strong>Seller location</strong><span><?php echo htmlspecialchars($product['seller_location'] !== '' ? $product['seller_location'] : 'South Africa'); ?></span></div>
+      <div class="info-row"><strong>Seller rating</strong><span><?php echo htmlspecialchars($product['rating_label']); ?></span></div>
       <div class="info-row"><strong>Category</strong><span><?php echo htmlspecialchars($product['category']); ?></span></div>
       <div class="info-row"><strong>Stock</strong><span><?php echo htmlspecialchars($product['stock_label']); ?></span></div>
-      <div class="info-row"><strong>Status</strong><span><?php echo $product['stock'] > 0 ? 'Available to order' : 'Unavailable'; ?></span></div>
+      <div class="info-row"><strong>Status</strong><span><?php echo htmlspecialchars($product['status_label']); ?></span></div>
     </div>
     <div class="cta-row">
       <?php if ($product['stock'] > 0): ?>
@@ -53,7 +56,7 @@ require __DIR__ . '/includes/header.php';
     <div class="feature-list">
       <div>Delivery contact details are captured during checkout.</div>
       <div>Payment can be simulated by card, EFT, or cash.</div>
-      <div>Orders appear on the buyer dashboard and the admin overview after purchase.</div>
+      <div>Completed orders can be reviewed from the buyer dashboard.</div>
     </div>
   </div>
 </section>

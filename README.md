@@ -32,8 +32,12 @@ LocalLink Market is a simplified PHP ecommerce project for a college submission.
 
 ## Database setup
 
-1. Import `database/schema.sql`.
-2. Import `database/seed.sql`.
+For a fresh install, import `database/full_setup.sql`.
+
+If you prefer the split files, import:
+
+1. `database/schema.sql`
+2. `database/seed.sql`
 3. Update database settings if needed:
    - `LOCALLINK_DB_HOST`
    - `LOCALLINK_DB_PORT`
@@ -41,11 +45,14 @@ LocalLink Market is a simplified PHP ecommerce project for a college submission.
    - `LOCALLINK_DB_USER`
    - `LOCALLINK_DB_PASS`
 
-If you already created the earlier smaller schema, run these migrations in order:
+If you already have an older localhost database, import `database/upgrade_to_current.sql`. This also makes the legacy `orders.product_id` column nullable so checkout can use the current `order_items` model.
+
+The older migration chain is still available if you want it step by step:
 
 ```sql
 SOURCE database/migrations/20260613_add_user_roles_and_login_audit.sql;
 SOURCE database/migrations/20260620_expand_checkout_relations.sql;
+SOURCE database/migrations/20260621_add_seller_marketplace_features.sql;
 ```
 
 ## Main tables

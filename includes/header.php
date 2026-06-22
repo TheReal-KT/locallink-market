@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/app.php';
 $pageTitle = $pageTitle ?? 'LocalLink Market';
-$pageDescription = $pageDescription ?? 'Simple ecommerce store with buyer login and admin tools.';
+$pageDescription = $pageDescription ?? 'Local marketplace with buyer, seller, and admin tools.';
 $currentUser = app_current_user();
 $dashboardPath = $currentUser ? app_dashboard_path_for_user($currentUser) : 'buyer-dashboard.php';
 $databaseWarning = db_is_available() ? null : market_database_unavailable_message();
@@ -21,7 +21,7 @@ $databaseWarning = db_is_available() ? null : market_database_unavailable_messag
       <span class="brand-mark">LL</span>
       <span class="brand-copy">
         <span class="brand-name">LocalLink Market</span>
-        <span class="brand-note">Simple college ecommerce project</span>
+        <span class="brand-note">Local buyer, seller, and admin marketplace</span>
       </span>
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
@@ -32,9 +32,14 @@ $databaseWarning = db_is_available() ? null : market_database_unavailable_messag
     <nav id="primary-nav" class="primary-nav" aria-label="Primary navigation">
       <a href="<?php echo htmlspecialchars(app_url('index.php')); ?>">Home</a>
       <a href="<?php echo htmlspecialchars(app_url('products.php')); ?>">Products</a>
+      <?php if ($currentUser !== null && app_is_seller($currentUser)): ?>
+        <a href="<?php echo htmlspecialchars(app_url('seller-dashboard.php')); ?>">Seller</a>
+      <?php elseif ($currentUser !== null && app_is_buyer($currentUser)): ?>
+        <a href="<?php echo htmlspecialchars(app_url('seller-profile.php')); ?>">Become a seller</a>
+      <?php endif; ?>
       <?php if ($currentUser !== null && app_is_admin($currentUser)): ?>
-        <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
         <a href="<?php echo htmlspecialchars(app_url('admin/dashboard.php')); ?>">Admin</a>
+        <a href="<?php echo htmlspecialchars(app_url('add-product.php')); ?>">Add product</a>
       <?php endif; ?>
       <?php if ($currentUser !== null): ?>
         <a href="<?php echo htmlspecialchars(app_url($dashboardPath)); ?>">Account</a>
